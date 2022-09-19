@@ -23,12 +23,12 @@ table = 'employee'
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template('AboutUs.html')
+    return render_template('AddEmp.html')
 
 
-@app.route("/about", methods=['POST'])
+@app.route("/about")
 def about():
-    return render_template('AboutUs.html')
+    return (render_template('AboutUs.html'))
 
 
 @app.route("/addemp", methods=['POST'])
@@ -83,5 +83,4 @@ def AddEmp():
 
 if __name__ == '__main__':
     
-    # app.run(host='0.0.0.0', port=80, debug=True)
-    home()
+    app.run(host='0.0.0.0', port=80, debug=True)
