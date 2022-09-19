@@ -11,11 +11,16 @@
 		<body bgcolor="lightgrey">
 
 			<form action="/fetchdata" autocomplete="on" method="POST">
+				
+				<h2 style="color: grey">{{empData[0]}}</h2>
 
-				<h2 style="color: grey">Enter Employee ID</h2>
+				<center><img src = "https://{{bucketName}}.s3.amazonaws.com/emp-id-{{empData[0]}}_image_file.png" style="width: 400px; height: 400px"></center>
 
-		  		Employee ID:<br> <input style="height:25px;font-size:14pt;" type="number" name="emp_id" autofocus size="40"><br><br>
-
+		  		Employee ID:<br> <input style="height:25px;font-size:14pt;" type="text" name="emp_id" value="{{empData[0]}}" size="40"><br><br>
+				Employee First Name:<br> <input style="height:25px;font-size:14pt;" type="text" name="emp_first_name" value="{{empData[1]}}" size="40"><br><br>
+				Employee Last Name:<br> <input style="height:25px;font-size:14pt;" type="text" name="emp_last_name" value="{{empData[2]}}" size="40"><br><br>
+				Primary Skill:<br> <input style="height:25px;font-size:14pt;" type="text" name="emp_pri_skill" value="{{empData[3]}}" size="40"><br><br>
+				Location:<br> <input style="height:25px;font-size:14pt;" type="text" name="emp_location" value="{{empData[4]}}" size="40"><br><br>
 
 		  		<button type="submit" style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">FETCH INFO</button><br><br>
 

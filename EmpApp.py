@@ -1,3 +1,4 @@
+from sqlite3 import Cursor
 from flask import Flask, render_template, request
 from pymysql import connections
 import os
@@ -20,7 +21,7 @@ db_conn = connections.Connection(
 )
 output = {}
 table = 'employee'
-
+cursor = db_conn.cursor()
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
@@ -29,7 +30,17 @@ def home():
 
 @app.route("/about")
 def about():
-    return (render_template('AboutUs.html'))
+    return render_template('AboutUs.html')
+
+@app.route("/getEmp", methods=['POST'])
+def getEmp():
+    emp_id = request.form['emp_id']
+    print(emp_id)
+    getEmpSQL = "Select * from employee WHERE emp_id = %s"
+    cursor.execute(getEmpSQL, emp_id)
+    employee = cursor.fetchone()
+    print(employee)
+    return render_template('GetEmp.html', empData = employee, bucketName = bucket)
 
 
 @app.route("/addemp", methods=['POST'])
@@ -41,8 +52,9 @@ def AddEmp():
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
 
+
+
     insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s)"
-    cursor = db_conn.cursor()
 
     if emp_image_file.filename == "":
         return "Please select a file"
@@ -81,6 +93,13 @@ def AddEmp():
     print("all modification done...")
     return render_template('AddEmpOutput.html', name=emp_name)
 
+@app.route("/listEmp", methods=['POST'])
+def displayEmp():
+    cursor = db_conn.cursor()
+    cursor.execute("Select * from employee")
+    employeeList = cursor.fetchall()
+    print(employeeList)
+    return render_template('DisplayEmployee.html', empList = employeeList, bucketName = bucket)
 
 if __name__ == '__main__':
     
