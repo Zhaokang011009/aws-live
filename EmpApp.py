@@ -26,7 +26,6 @@ table = 'employee'
 def home():
     return render_template('AddEmp.html')
 
-
 @app.route("/about")
 def about():
     return render_template('AboutUs.html')
@@ -43,7 +42,6 @@ def getEmp():
 
     cursor.close()
     return render_template('GetEmp.html', empData = employee, bucketName = bucket)
-
 
 @app.route("/addemp", methods=['POST'])
 def AddEmp():
@@ -99,21 +97,17 @@ def EditEmp():
     emp_image_file = request.files['emp_image_file']
 
     cursor = db_conn.cursor()
-
     update_sql = "UPDATE employee SET first_name = %s, last_name = %s, pri_skill = %s, location = %s WHERE emp_id = %s"
 
-    if emp_image_file.filename == "":
-        return "Please select a file"
-
-    else:
-        cursor.execute(update_sql, (first_name, last_name, pri_skill, location, emp_id))
-        db_conn.commit()
+    #update data
+    cursor.execute(update_sql, (first_name, last_name, pri_skill, location, emp_id))
+    db_conn.commit()
+    if emp_image_file.filename != "":
         
-        # Uplaod image file in S3 #
+        # Upload image file in S3 #
         emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file.png"
         s3 = boto3.resource('s3')
 
-        #update data
         s3.Bucket(custombucket).put_object(Key=emp_image_file_name_in_s3, Body=emp_image_file)
         bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
         s3_location = (bucket_location['LocationConstraint'])
@@ -129,11 +123,29 @@ def EditEmp():
             emp_image_file_name_in_s3)
 
     cursor.close()
-    return render_template('DisplayEmployee.html')
+    return render_template('AddEmp.html')
 
-@app.route("/removeEmp", methods=['GET'])
+@app.route("/removeEmp", methods=['POST'])
 def RemoveEmp():
     cursor = db_conn.cursor()
+    emp_id = request.form['emp_ID']
+    print(emp_id)
+    remove_sql = "Delete from employee WHERE emp_id = %s"
+    emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file.png"
+
+    #remove data
+    cursor.execute(remove_sql, emp_id)
+    s3 = boto3.resource('s3')
+    s3.Object(custombucket, emp_image_file_name_in_s3).delete()
+    db_conn.commit()
+    cursor.close()
+
+    cursor = db_conn.cursor()
+    cursor.execute("Select * from employee")
+    employeeList = cursor.fetchall()
+    print(employeeList)
+    cursor.close()
+    return render_template('DisplayEmployee.html', empList = employeeList, bucketName = bucket)
 
 @app.route("/listEmp", methods=['POST'])
 def displayEmp():
@@ -141,6 +153,8 @@ def displayEmp():
     cursor.execute("Select * from employee")
     employeeList = cursor.fetchall()
     print(employeeList)
+    cursor.close()
+
     return render_template('DisplayEmployee.html', empList = employeeList, bucketName = bucket)
 
 if __name__ == '__main__':

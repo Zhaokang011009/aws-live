@@ -14,6 +14,7 @@
                 <td>Name</td>
                 <td>Primary Skill</td>
                 <td>Location</td>
+                <td></td>
             </thead>
             <tbody>
                 {% for row in empList %}
@@ -26,9 +27,12 @@
                     <td>{{row[1]}} {{row[2]}}</td>
                     <td>{{row[3]}}</td>
                     <td>{{row[4]}}</td>  
-                    <!-- <form action="/removeEmp" method="get">
-                        <button type="submit">Remove</button>
-                    </form>      -->
+
+                        <td>
+                            <form action = "/removeEmp" method = "POST">
+                                <button type="submit" name="emp_ID" value="{{row[0]}}">Remove</button>
+                            </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
