@@ -17,11 +17,10 @@ db_conn = connections.Connection(
     user=customuser,
     password=custompass,
     db=customdb
-
 )
+
 output = {}
 table = 'employee'
-cursor = db_conn.cursor()
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
@@ -34,12 +33,15 @@ def about():
 
 @app.route("/getEmp", methods=['POST'])
 def getEmp():
+    cursor = db_conn.cursor()
     emp_id = request.form['emp_id']
     print(emp_id)
     getEmpSQL = "Select * from employee WHERE emp_id = %s"
     cursor.execute(getEmpSQL, emp_id)
     employee = cursor.fetchone()
     print(employee)
+
+    cursor.close()
     return render_template('GetEmp.html', empData = employee, bucketName = bucket)
 
 
@@ -52,15 +54,14 @@ def AddEmp():
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
 
-
+    cursor = db_conn.cursor()
 
     insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s)"
 
     if emp_image_file.filename == "":
         return "Please select a file"
 
-    try:
-
+    else:
         cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location))
         db_conn.commit()
         emp_name = "" + first_name + " " + last_name
@@ -68,30 +69,71 @@ def AddEmp():
         emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file.png"
         s3 = boto3.resource('s3')
 
-        try:
-            print("Data inserted in MySQL RDS... uploading image to S3...")
-            s3.Bucket(custombucket).put_object(Key=emp_image_file_name_in_s3, Body=emp_image_file)
-            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
-            s3_location = (bucket_location['LocationConstraint'])
+        print("Data inserted in MySQL RDS... uploading image to S3...")
+        s3.Bucket(custombucket).put_object(Key=emp_image_file_name_in_s3, Body=emp_image_file)
+        bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+        s3_location = (bucket_location['LocationConstraint'])
 
-            if s3_location is None:
-                s3_location = ''
-            else:
-                s3_location = '-' + s3_location
+        if s3_location is None:
+            s3_location = ''
+        else:
+            s3_location = '-' + s3_location
 
-            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
-                s3_location,
-                custombucket,
-                emp_image_file_name_in_s3)
+        object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+            s3_location,
+            custombucket,
+            emp_image_file_name_in_s3)
 
-        except Exception as e:
-            return str(e)
-
-    finally:
-        cursor.close()
+    cursor.close()
 
     print("all modification done...")
     return render_template('AddEmpOutput.html', name=emp_name)
+
+@app.route("/updateEmp", methods=['POST'])
+def EditEmp():
+    emp_id = request.form['emp_id']
+    first_name = request.form['emp_first_name']
+    last_name = request.form['emp_last_name']
+    pri_skill = request.form['emp_pri_skill']
+    location = request.form['emp_location']
+    emp_image_file = request.files['emp_image_file']
+
+    cursor = db_conn.cursor()
+
+    update_sql = "UPDATE employee SET first_name = %s, last_name = %s, pri_skill = %s, location = %s WHERE emp_id = %s"
+
+    if emp_image_file.filename == "":
+        return "Please select a file"
+
+    else:
+        cursor.execute(update_sql, (first_name, last_name, pri_skill, location, emp_id))
+        db_conn.commit()
+        
+        # Uplaod image file in S3 #
+        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file.png"
+        s3 = boto3.resource('s3')
+
+        #update data
+        s3.Bucket(custombucket).put_object(Key=emp_image_file_name_in_s3, Body=emp_image_file)
+        bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+        s3_location = (bucket_location['LocationConstraint'])
+
+        if s3_location is None:
+            s3_location = ''
+        else:
+            s3_location = '-' + s3_location
+
+        object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+            s3_location,
+            custombucket,
+            emp_image_file_name_in_s3)
+
+    cursor.close()
+    return render_template('DisplayEmployee.html')
+
+@app.route("/removeEmp", methods=['GET'])
+def RemoveEmp():
+    cursor = db_conn.cursor()
 
 @app.route("/listEmp", methods=['POST'])
 def displayEmp():

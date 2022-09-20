@@ -10,13 +10,13 @@
 
 		<body bgcolor="lightgrey">
 
-			<form action="/updateEmp" autocomplete="on" method="POST">
+			<form action="/updateEmp" method="POST" enctype="multipart/form-data">
 				
 				<h2 style="color: grey">{{empData[0]}}</h2>
 
 				<center><img id = "EmpProfileImage" src = "https://{{bucketName}}.s3.amazonaws.com/emp-id-{{empData[0]}}_image_file.png" style="width: 400px; height: 400px"></center>
 
-				<br><br><input type = "file" name = "" onchange = "document.getElementById('EmpProfileImage').src = window.URL.createObjectURL(this.files[0])"><br><br>
+				<br><br><input type = "file" name = "emp_image_file" onchange = "document.getElementById('EmpProfileImage').src = window.URL.createObjectURL(this.files[0])"><br><br>
 
 		  		Employee ID:<br> <input style="height:25px;font-size:14pt;" type="text" name="emp_id" value="{{empData[0]}}" size="40"><br><br>
 				Employee First Name:<br> <input style="height:25px;font-size:14pt;" type="text" name="emp_first_name" value="{{empData[1]}}" size="40"><br><br>

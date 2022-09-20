@@ -19,15 +19,16 @@
                 {% for row in empList %}
                 <tr>
                     
-                        <td><button action = "/getEmp" tyoe = "submit" formaction="/getEmp" name="emp_id" value="{{row[0]}}">
+                        <td><button action = "/getEmp" type = "submit" formaction="/getEmp" name="emp_id" value="{{row[0]}}">
                             <img src="https://{{bucketName}}.s3.amazonaws.com/emp-id-{{row[0]}}_image_file.png"
                                 width="100px" height="100px"></button></td>
                     <!-- <td>abc</td> -->
                     <td>{{row[1]}} {{row[2]}}</td>
                     <td>{{row[3]}}</td>
-                    <td>{{row[4]}}</td>
-                    <td style="display: none; background-color: aqua;"></td>
-                
+                    <td>{{row[4]}}</td>  
+                    <!-- <form action="/removeEmp" method="get">
+                        <button type="submit">Remove</button>
+                    </form>      -->
                 </tr>
                 {% endfor %}
             </tbody>
