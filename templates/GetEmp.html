@@ -28,7 +28,23 @@
 
 			</form>
 
+			
+
 		</body>
 	</font>
 </center>
+
+<script>
+	function showPreview(input) {
+		if (input.files && input.files[0]) {
+			var readers = new FileReader();
+			readers.onload = function (pImage) {
+				document.getElementsByClassName("imagePreview")[0].setAttribute("src", pImage.target.result);
+			}
+			readers.readAsDataURL(input.files[0]);
+		}
+	}
+
+</script>
+
 </html>
