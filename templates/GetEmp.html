@@ -10,7 +10,7 @@
 
 		<body bgcolor="lightgrey">
 
-			<form action="/updateEmp" method="POST" enctype="multipart/form-data">
+			<form action="/updateEmp" onsubmit="undisable()" method="POST" enctype="multipart/form-data">
 				
 				<h2 style="color: grey">{{empData[0]}}</h2>
 
@@ -18,15 +18,15 @@
 
 				<br><br><input type = "file" name = "emp_image_file" onchange = "document.getElementById('EmpProfileImage').src = window.URL.createObjectURL(this.files[0])"><br><br>
 
-		  		Employee ID:<br> <input style="height:25px;font-size:14pt;" type="text" name="emp_id" value="{{empData[0]}}" size="40"><br><br>
+		  		Employee ID:<br> <input id = "empID" style="height:25px;font-size:14pt;" type="text" name="employeeID" value="{{empData[0]}}" size="40" disabled><br><br>
 				Employee First Name:<br> <input style="height:25px;font-size:14pt;" type="text" name="emp_first_name" value="{{empData[1]}}" size="40"><br><br>
 				Employee Last Name:<br> <input style="height:25px;font-size:14pt;" type="text" name="emp_last_name" value="{{empData[2]}}" size="40"><br><br>
 				Primary Skill:<br> <input style="height:25px;font-size:14pt;" type="text" name="emp_pri_skill" value="{{empData[3]}}" size="40"><br><br>
 				Location:<br> <input style="height:25px;font-size:14pt;" type="text" name="emp_location" value="{{empData[4]}}" size="40"><br><br>
 
-		  		<!-- <button type="submit" style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">FETCH INFO</button><br><br> -->
-
-		  		<button type="submit" style="background: white	; height: 45px; width: 200px; color: black; size: 5; font:oblique;" method="GET">GO TO UPDATE DATABASE PAGE</button>
+		  		<button type="submit" style="background: white	; height: 45px; width: 200px; color: black; size: 5; font:oblique;" method="GET">
+					GO TO UPDATE DATABASE PAGE
+				</button>
 
 			</form>
 
@@ -35,5 +35,11 @@
 		</body>
 	</font>
 </center>
+
+<script>
+	function undisable(){
+		document.getElementById("empID").disabled = false;
+	}
+</script>
 
 </html>

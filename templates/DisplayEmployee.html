@@ -8,7 +8,6 @@
 <body>
     <title>Employee List</title>
     <table>
-        <form action = "/getEmp" method = "POST">
             <thead>
                 <td>Profile</td>
                 <td>Name</td>
@@ -19,24 +18,20 @@
             <tbody>
                 {% for row in empList %}
                 <tr>
-                    
-                        <td><button action = "/getEmp" type = "submit" formaction="/getEmp" name="emp_id" value="{{row[0]}}">
-                            <img src="https://{{bucketName}}.s3.amazonaws.com/emp-id-{{row[0]}}_image_file.png"
-                                width="100px" height="100px"></button></td>
-                    <!-- <td>abc</td> -->
+                    <td><form action = "/getEmp" method = "POST"><button action = "/getEmp" type = "submit" formaction="/getEmp" name="emp_IDs" value="{{row[0]}}">
+                        <img src="https://{{bucketName}}.s3.amazonaws.com/emp-id-{{row[0]}}_image_file.png"
+                            width="100px" height="100px"></button></form></td>
                     <td>{{row[1]}} {{row[2]}}</td>
                     <td>{{row[3]}}</td>
                     <td>{{row[4]}}</td>  
-
-                        <td>
-                            <form action = "/removeEmp" method = "POST">
-                                <button type="submit" name="emp_ID" value="{{row[0]}}">Remove</button>
-                            </form>
+                    <td>
+                        <form action = "/removeEmp" method = "POST">
+                            <button type="submit" name="emp_IDs" value="{{row[0]}}">Remove</button>
+                        </form>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
-        </form>
     </table>
 
 </body>

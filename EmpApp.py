@@ -33,10 +33,10 @@ def about():
 @app.route("/getEmp", methods=['POST'])
 def getEmp():
     cursor = db_conn.cursor()
-    emp_id = request.form['emp_id']
-    print(emp_id)
+    emp_id_get = request.form['emp_IDs']
+    print(emp_id_get)
     getEmpSQL = "Select * from employee WHERE emp_id = %s"
-    cursor.execute(getEmpSQL, emp_id)
+    cursor.execute(getEmpSQL, emp_id_get)
     employee = cursor.fetchone()
     print(employee)
 
@@ -89,26 +89,26 @@ def AddEmp():
 
 @app.route("/updateEmp", methods=['POST'])
 def EditEmp():
-    emp_id = request.form['emp_id']
-    first_name = request.form['emp_first_name']
-    last_name = request.form['emp_last_name']
-    pri_skill = request.form['emp_pri_skill']
-    location = request.form['emp_location']
-    emp_image_file = request.files['emp_image_file']
+    emp_id_edt = request.form['employeeID']
+    first_name_edt = request.form['emp_first_name']
+    last_name_edt = request.form['emp_last_name']
+    pri_skill_edt = request.form['emp_pri_skill']
+    location_edt = request.form['emp_location']
+    emp_image_file_edt = request.files['emp_image_file']
 
     cursor = db_conn.cursor()
     update_sql = "UPDATE employee SET first_name = %s, last_name = %s, pri_skill = %s, location = %s WHERE emp_id = %s"
 
     #update data
-    cursor.execute(update_sql, (first_name, last_name, pri_skill, location, emp_id))
+    cursor.execute(update_sql, (first_name_edt, last_name_edt, pri_skill_edt, location_edt, emp_id_edt))
     db_conn.commit()
-    if emp_image_file.filename != "":
+    if emp_image_file_edt.filename != "":
         
         # Upload image file in S3 #
-        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file.png"
+        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id_edt) + "_image_file.png"
         s3 = boto3.resource('s3')
 
-        s3.Bucket(custombucket).put_object(Key=emp_image_file_name_in_s3, Body=emp_image_file)
+        s3.Bucket(custombucket).put_object(Key=emp_image_file_name_in_s3, Body=emp_image_file_edt)
         bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
         s3_location = (bucket_location['LocationConstraint'])
 
@@ -128,7 +128,7 @@ def EditEmp():
 @app.route("/removeEmp", methods=['POST'])
 def RemoveEmp():
     cursor = db_conn.cursor()
-    emp_id = request.form['emp_ID']
+    emp_id = request.form['emp_IDs']
     print(emp_id)
     remove_sql = "Delete from employee WHERE emp_id = %s"
     emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file.png"
