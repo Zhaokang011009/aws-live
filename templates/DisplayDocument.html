@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Employee Document</title>
+    <style>
+        body {
+          /* Set "my-sec-counter" to 0 */
+          counter-reset: my-sec-counter;
+        }
+        
+        .numDocument::before {
+          /* Increment "my-sec-counter" by 1 */
+          counter-increment: my-sec-counter;
+          content: counter(my-sec-counter) ".";
+        }
+        </style>
+</head>
+<center>
+	<font color="black" size="4" style="font-family: avenir">
+
+		<h1 style="color: DodgerBlue">Employee Document List</h1>
+
+		<body bgcolor="lightgrey">
+            <table>
+                <thead>
+                    <td>No</td>
+                    <td>Document Name</td>
+                    <td>Document Are Under</td>
+                    <td></td>
+                </thead>
+                <tbody>
+                    {% for rows in documentList %}
+                    <tr>
+                    <form action="\removeDoc">
+                    <td class="numDocument"></td>
+                    <td>{{rows[0]}}</td>
+                    <td>{{rows[1]}} {{rows[2]}}</td>
+                    <td><button type = "submit" name = "removeDocument" value = "{{rows[0]}}" formaction = "/removeDoc"
+						style="background: white; height: 45px; width: 200px; color: black; size: 5; font:oblique;">Remove</button><br></td>
+                    </tr>
+                    {% endfor %}
+                    </form>
+                    
+                </tbody>
+            </table>
+			
+		</body>
+
+	</font>
+</center>
+</html>
