@@ -50,15 +50,28 @@
 
                </div>
                <div class="sidebar_blog_2">
+                  <form action="/listemp" autocomplete="on" method = "POST" enctype="multipart/form-data">
                   <div class="logo_section">
-                     <a href="index.html"><img class="img-responsive" src="{{ url_for('static',filename='assets/vendor/bootstrap/images/logo/logo.png') }}" alt="#" /></a>
+                     <button type="submit"  class="btnSideBar" formaction="/"><img class="img-responsive" src="{{ url_for('static',filename='assets/vendor/bootstrap/images/logo/logo.png') }}" alt="#" /></button>
+                     
                   </div>
                   <ul class="list-unstyled components">
-                     <form action="/addemp" autocomplete="on" method = "POST" enctype="multipart/form-data">
-                     <li>
-                        <button type="submit" formaction="/listEmp"><i class="fa fa-table purple_color2"></i> <span>Staff Listing</span></button>
-                     </li>
-                  </form>
+                    
+                        <ul class="list-unstyled components">
+                        <li>
+                           <button type="submit"  class="btnSideBar" formaction="/listEmp"><i class="fa fa-table purple_color2"></i> <span>Staff Listing</span></button>
+                        </li>
+                        <li>
+                           <button type="submit"  class="btnSideBar" formaction="/add"><i class="fa fa-table purple_color2"></i> <span>Add Staff</span></button>
+                        </li>
+                        <li>
+                           <button type="submit"  class="btnSideBar" formaction="/listEmp"><i class="fa fa-table purple_color2"></i> <span>Staff Listing</span></button>
+                        </li>
+                        <li>
+                           <button type="submit"  class="btnSideBar" formaction="/listEmp"><i class="fa fa-table purple_color2"></i> <span>Staff Listing</span></button>
+                        </li>
+                     </ul>
+                      </form>
                   </ul>
                </div>
             </nav>
@@ -66,28 +79,6 @@
             <!-- right content -->
             <div id="content">
                <!-- topbar -->
-               <div class="topbar">
-                  <nav class="navbar navbar-expand-lg navbar-light">
-                     <div class="full">
-
-                        <div class="right_topbar">
-                           <div class="icon_info">
-                              <ul class="user_profile_dd">
-                                 <li>
-                                    <a class="dropdown-toggle" data-toggle="dropdown"><img class="img-responsive rounded-circle" src="{{ url_for('static',filename='assets/vendor/bootstrap/images/layout_img/user_img.jpg') }}" alt="#" /><span class="name_user">John David</span></a>
-                                    <div class="dropdown-menu">
-                                       <a class="dropdown-item" href="profile.html">My Profile</a>
-                                       <a class="dropdown-item" href="settings.html">Settings</a>
-                                       <a class="dropdown-item" href="help.html">Help</a>
-                                       <a class="dropdown-item" href="#"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
-                                    </div>
-                                 </li>
-                              </ul>
-                           </div>
-                        </div>
-                     </div>
-                  </nav>
-               </div>
                <!-- end topbar -->
                <!-- dashboard inner -->
                <div class="midde_cont">

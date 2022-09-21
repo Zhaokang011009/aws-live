@@ -3629,8 +3629,8 @@ table.projects tr td:first-child {
   
   /* Make the image responsive */
   .container1 img {
-    width: 50%;
-    height: auto;
+    width: 400px;
+    height: 400px;
   }
   
   /* Style the button and place it in the middle of the container/image */
@@ -3674,3 +3674,16 @@ table.projects tr td:first-child {
     width: 50%;
     height: 100%;
   }
+
+
+  .btnSideBar {
+    width: 100%;
+    height: auto;
+    background: transparent;
+    text-align: center;
+    padding: 20px 25px;
+    font-size: 21px;
+    color: white;
+border: hidden;
+    
+}
