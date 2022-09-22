@@ -1,6 +1,7 @@
 from sqlite3 import Cursor
 from flask import Flask, redirect, url_for, render_template, request
 from pymysql import connections
+from datetime import date
 import os
 import pathlib
 import boto3
@@ -38,7 +39,11 @@ def goAdd():
 
 @app.route("/goUploadDoc", methods=['POST'])
 def uploadFilePage():
-    return render_template('uploadDoc.html')
+    return render_template('UploadDoc.html')
+
+@app.route("/goAddLeave", methods=['POST'])
+def addLeavePage(): 
+    return render_template('ApplyLeave.html')
 
 @app.route("/listEmp", methods=['POST'])
 def displayEmp():
@@ -50,7 +55,7 @@ def displayEmp():
 
     return render_template('DisplayEmployee.html', empList = employeeList, bucketName = bucket)
 
-@app.route("/displayDoc", methods=['POST'])
+@app.route("/listDoc", methods=['POST'])
 def displayDoc():
     cursor = db_conn.cursor()
     select_doc_sql = "Select d.doc_url, e.first_name, e.last_name FROM employee as e, document as d WHERE e.emp_id = d.link_emp_id"
@@ -60,6 +65,15 @@ def displayDoc():
     cursor.close()
 
     return render_template('DisplayDocument.html', documentList = documentList)
+
+@app.route("/listLeave", methods=['POST'])
+def displayLeave(): 
+    cursor = db_conn.cursor()
+    select_leave_sql = "SELECT l.from_date, l.to_date, e.first_name, e.last_name, l.reason_apply, l.approved_date FROM leaveEmployee AS l, employee AS e WHERE l.link_emp_id = e.emp_id"
+    cursor.execute(select_leave_sql)
+    leaveList = cursor.fetchall()
+    cursor.close()
+    return render_template('DisplayLeave.html', leaveList = leaveList)
 
 #CRUD employee function
 
@@ -185,7 +199,7 @@ def RemoveEmp():
     cursor.close()
     return render_template('DisplayEmployee.html', empList = employeeList, bucketName = bucket)
 
-#upload file function
+#file function
 
 @app.route("/uploadDoc", methods=['POST'])
 def uploadFile():
@@ -249,6 +263,27 @@ def removeDoc():
     cursor.close()
     return render_template('DisplayEmployee.html', empList = employeeList, bucketName = bucket)
 
+#leave function
+@app.route("/addLeave", methods=['POST'])
+def addLeave():
+    emp_id_leave = request.form['emp_id_leave']
+    leave_from_date = request.form['leave_from_date']
+    leave_to_date = request.form['leave_to_date']
+    reason_apply = request.form['reason_apply']
+
+    add_leave_sql = "INSERT INTO leaveEmployee VALUES (%s, %s, %s, %s, %s, %s)"
+    count_leave_sql = "SELECT COUNT(leave_id)+1 FROM leaveEmployee"
+
+    cursor = db_conn.cursor()
+    cursor.execute(count_leave_sql)
+    totalCountLeave = cursor.fetchone()
+
+    leave_id = "L" + str(totalCountLeave[0])
+
+    cursor.execute(add_leave_sql, (leave_id, str(date.today()), str(leave_from_date), str(leave_to_date), reason_apply, emp_id_leave))
+    db_conn.commit()
+    cursor.close()
+    return render_template('Home.html')
 
 if __name__ == '__main__':
     

@@ -53,27 +53,35 @@
 
 						</div>
 						<ul class="list-unstyled components">
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/listEmp"><i
-										class="fa fa-table purple_color2"></i> <span>Staff Listing</span></button>
-							</li>
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/goAdd"><i
-										class="fa fa-table purple_color2"></i> <span>Add Staff</span></button>
-							</li>
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/displayDoc"><i
-										class="fa fa-table purple_color2"></i> <span>Document Listing</span></button>
-							</li>
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/goUploadDoc"><i
-										class="fa fa-table purple_color2"></i> <span>Upload Document</span></button>
-							</li>
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/about"><i
-										class="fa fa-table purple_color2"></i> <span>About Us</span></button>
-							</li>
-						</ul>
+                            <li>
+                                <button type="submit" class="btnSideBar" formaction="/listEmp"><i
+                                        class="fa fa-table purple_color2"></i> <span>Staff List</span></button>
+                            </li>
+                            <li>
+                                <button type="submit" class="btnSideBar" formaction="/goAdd"><i
+                                        class="fa fa-table purple_color2"></i> <span>Add Staff</span></button>
+                            </li>
+                            <li>
+                                <button type="submit" class="btnSideBar" formaction="/listDoc"><i
+                                        class="fa fa-table purple_color2"></i> <span>Document List</span></button>
+                            </li>
+                            <li>
+                                <button type="submit" class="btnSideBar" formaction="/goUploadDoc"><i
+                                        class="fa fa-table purple_color2"></i> <span>Upload Document</span></button>
+                            </li>
+                            <li>
+                                <button type="submit" class="btnSideBar" formaction="/listLeave"><i
+                                        class="fa fa-table purple_color2"></i> <span>Leave List</span></button>
+                            </li>
+                            <li>
+                                <button type="submit" class="btnSideBar" formaction="/goAddLeave"><i
+                                        class="fa fa-table purple_color2"></i> <span>Apply Leave</span></button>
+                            </li>
+                            <li>
+                                <button type="submit" class="btnSideBar" formaction="/about"><i
+                                        class="fa fa-table purple_color2"></i> <span>About Us</span></button>
+                            </li>
+                        </ul>
 					</form>
 					</ul>
 				</div>
@@ -111,10 +119,11 @@
 													enctype="multipart/form-data">
 													<div class="container1">
 														<!-- put default pic -->
-														<img width="90" class="rounded-circle"
+														<img width="90" class="rounded-circle" id = "EmpProfileImage"
 															src="{{ url_for('static',filename='assets/vendor/bootstrap/images/layout_img/user_img.jpg') }}"
 															alt="#">
 														<input type="file" id="upload" name="emp_image_file" hidden
+															onchange="document.getElementById('EmpProfileImage').src = window.URL.createObjectURL(this.files[0])"
 															class="btn">
 														<label for="upload" class="upload">Choose file</label>
 													</div>

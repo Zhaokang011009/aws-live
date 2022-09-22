@@ -54,19 +54,27 @@
                         <ul class="list-unstyled components">
                             <li>
                                 <button type="submit" class="btnSideBar" formaction="/listEmp"><i
-                                        class="fa fa-table purple_color2"></i> <span>Staff Listing</span></button>
+                                        class="fa fa-table purple_color2"></i> <span>Staff List</span></button>
                             </li>
                             <li>
                                 <button type="submit" class="btnSideBar" formaction="/goAdd"><i
                                         class="fa fa-table purple_color2"></i> <span>Add Staff</span></button>
                             </li>
                             <li>
-                                <button type="submit" class="btnSideBar" formaction="/displayDoc"><i
-                                        class="fa fa-table purple_color2"></i> <span>Document Listing</span></button>
+                                <button type="submit" class="btnSideBar" formaction="/listDoc"><i
+                                        class="fa fa-table purple_color2"></i> <span>Document List</span></button>
                             </li>
                             <li>
                                 <button type="submit" class="btnSideBar" formaction="/goUploadDoc"><i
                                         class="fa fa-table purple_color2"></i> <span>Upload Document</span></button>
+                            </li>
+                            <li>
+                                <button type="submit" class="btnSideBar" formaction="/listLeave"><i
+                                        class="fa fa-table purple_color2"></i> <span>Leave List</span></button>
+                            </li>
+                            <li>
+                                <button type="submit" class="btnSideBar" formaction="/goAddLeave"><i
+                                        class="fa fa-table purple_color2"></i> <span>Apply Leave</span></button>
                             </li>
                             <li>
                                 <button type="submit" class="btnSideBar" formaction="/about"><i
@@ -133,25 +141,25 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {% for row in empList %}
+                                                    {% for rows in empList %}
                                                     <tr>
                                                         <td> <img
-                                                                src="https://{{bucketName}}.s3.amazonaws.com/emp-id-{{row[0]}}_image_file.png"
+                                                                src="https://{{bucketName}}.s3.amazonaws.com/emp-id-{{rows[0]}}_image_file.png"
                                                                 width="100px" height="100px"></td>
-                                                        <td>{{row[1]}} {{row[2]}}</td>
-                                                        <td>{{row[3]}}</td>
-                                                        <td>{{row[4]}}</td>
+                                                        <td>{{rows[1]}} {{rows[2]}}</td>
+                                                        <td>{{rows[3]}}</td>
+                                                        <td>{{rows[4]}}</td>
                                                         <td>
                                                             <form action="/getEmp" method="POST">
                                                                 <button action="/getEmp" type="submit"
                                                                     formaction="/getEmp" name="emp_IDs" class="btnList"
-                                                                    value="{{row[0]}}">
+                                                                    value="{{rows[0]}}">
                                                                     Edit
                                                                 </button>
                                                             </form>
 
                                                             <form action="/removeEmp" method="POST">
-                                                                <button type="submit" name="emp_IDs" value="{{row[0]}}"
+                                                                <button type="submit" name="emp_IDs" value="{{rows[0]}}"
                                                                     class="btnRemove">Remove</button>
                                                             </form>
                                                         </td>
