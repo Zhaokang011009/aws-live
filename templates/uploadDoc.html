@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
+    <title>Upload Document</title>
     <!-- basic -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -69,14 +70,6 @@
                                         class="fa fa-table purple_color2"></i> <span>Upload Document</span></button>
                             </li>
                             <li>
-                                <button type="submit" class="btnSideBar" formaction="/listTraining"><i
-                                        class="fa fa-table purple_color2"></i> <span>Training Listing</span></button>
-                            </li>
-                            <li>
-                                <button type="submit" class="btnSideBar" formaction="/goRegisterTraining"><i
-                                        class="fa fa-table purple_color2"></i> <span>Add Training</span></button>
-                            </li>
-                            <li>
                                 <button type="submit" class="btnSideBar" formaction="/about"><i
                                         class="fa fa-table purple_color2"></i> <span>About Us</span></button>
                             </li>
@@ -97,20 +90,22 @@
                         <div class="row column_title">
                             <div class="col-md-12">
                                 <div class="page_title">
-                                    <h2>Home</h2>
+                                    <title>Select File from your computer</title>
                                 </div>
                             </div>
                         </div>
                         <!-- row -->
                         <div class="row">
-                            <!-- table section -->
-                            <div class="col-md-12">
-                                <div class="white_shd full margin_bottom_30">
-                                    <div class="ui calendar" id="example14"></div>
-                                </div>
+                            <div class="file-input">
+                                <form action="/uploadDoc" method="post" enctype="multipart/form-data">
+                                    <input type="file"name="uploadDocInput"><br>
+                                    <input type="text" name="uploadEmp"><br>
+                                    <button type="submit" action="/uploadDoc" name="uploadEmp"
+                                        value="{{empID}}">submit</button>
+                                </form>
                             </div>
-
-
+                        </div>
+                        <div class="row">
                             <!-- footer -->
                             <div class="container-fluid">
                                 <div class="footer">
@@ -151,6 +146,8 @@
             <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/custom.js')}}"></script>
             <!-- calendar file css -->
             <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/semantic.min.js')}}"></script>
+            <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/fileinput.js')}}"></script>
+
 </body>
 
 </html>

@@ -1,196 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <!-- basic -->
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <!-- mobile metas -->
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-      <!-- site metas -->
-      <title>Pluto - Responsive Bootstrap Admin Panel Templates</title>
-      <meta name="keywords" content="">
-      <meta name="description" content="">
-      <meta name="author" content="">
-      <!-- site icon -->
-      <link rel="icon" href="images/fevicon.png" type="{{ url_for('static',filename='assets/vendor/bootstrap/image/png') }}" />
-      <!-- bootstrap css -->
-      <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}" />
-      <!-- site css -->
-      <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/style.css') }}"/>
-      <!-- responsive css -->
-      <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/responsive.css') }}"/>
-      <!-- color css -->
-      <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/colors.css') }}" />
-      <!-- select bootstrap -->
-      <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/bootstrap-select.css')}}" />
-      <!-- scrollbar css -->
-      <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/perfect-scrollbar.css')}}" />
-      <!-- custom css -->
-      <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/custom.css')}}" />
-      <!-- calendar file css -->
-      <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/js/semantic.min.css')}}" />
-      <!--[if lt IE 9]>
+
+<head>
+	<!-- basic -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- mobile metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<!-- site metas -->
+	<title>Pluto - Responsive Bootstrap Admin Panel Templates</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!-- site icon -->
+	<link rel="icon" href="images/fevicon.png"
+		type="{{ url_for('static',filename='assets/vendor/bootstrap/image/png') }}" />
+	<!-- bootstrap css -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}" />
+	<!-- site css -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/style.css') }}" />
+	<!-- responsive css -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/responsive.css') }}" />
+	<!-- color css -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/colors.css') }}" />
+	<!-- select bootstrap -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/bootstrap-select.css')}}" />
+	<!-- scrollbar css -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/perfect-scrollbar.css')}}" />
+	<!-- custom css -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/custom.css')}}" />
+	<!-- calendar file css -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/js/semantic.min.css')}}" />
+	<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
-   </head>
-   <body class="inner_page profile_page">
-     
-      <div class="full_container">
-         <div class="inner_container">
-            <!-- Sidebar  -->
-            <nav id="sidebar">
-               <div class="sidebar_blog_1">
-                  <div class="sidebar-header">
-                     <div class="logo_section">
-                        <a href="index.html"><img class="logo_icon img-responsive" src="{{ url_for('static',filename='assets/vendor/bootstrap/images/logo/logo_icon.png') }}" alt="#" /></a>
-                     </div>
-                  </div>
+</head>
 
-               </div>
-               <div class="sidebar_blog_2">
-                  <form action="/listemp" autocomplete="on" method = "POST" enctype="multipart/form-data">
-                  <div class="logo_section">
-                     <button type="submit"  class="btnSideBar" formaction="/"><img class="img-responsive" src="{{ url_for('static',filename='assets/vendor/bootstrap/images/logo/logo.png') }}" alt="#" /></button>
-                     
-                  </div>
-                  <ul class="list-unstyled components">
-                    
-                        <ul class="list-unstyled components">
-                        <li>
-                           <button type="submit"  class="btnSideBar" formaction="/listEmp"><i class="fa fa-table purple_color2"></i> <span>Staff Listing</span></button>
-                        </li>
-                        <li>
-                           <button type="submit"  class="btnSideBar" formaction="/add"><i class="fa fa-table purple_color2"></i> <span>Add Staff</span></button>
-                        </li>
-                        <li>
-                           <button type="submit"  class="btnSideBar" formaction="/listEmp"><i class="fa fa-table purple_color2"></i> <span>Staff Listing</span></button>
-                        </li>
-                        <li>
-                           <button type="submit"  class="btnSideBar" formaction="/listEmp"><i class="fa fa-table purple_color2"></i> <span>Staff Listing</span></button>
-                        </li>
-                     </ul>
-                      </form>
-                  </ul>
-               </div>
-            </nav>
-            <!-- end sidebar -->
-            <!-- right content -->
-            <div id="content">
-               <!-- topbar -->
-               <!-- end topbar -->
-               <!-- dashboard inner -->
-               <div class="midde_cont">
-                  <div class="container-fluid">
-                     <div class="row column_title">
-                        <div class="col-md-12">
-                           <div class="page_title">
-                              <h2>Add New Staff</h2>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- row -->
-                     <div class="row column1">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Add New Staff</h2>
-                                 </div>
-                              </div>
-                              
-                              <div class="full price_table padding_infor_info">
-                                 <div class="row">
-                                          <div class="add">
-                                             <form action="/addemp" autocomplete="on" method = "POST" enctype="multipart/form-data">
-                                             <div class="container1">
-                                                <img width="90" class="rounded-circle" src="{{ url_for('static',filename='assets/vendor/bootstrap/images/layout_img/user_img.jpg') }}" alt="#">
-                                                <input type="file" id="upload" name="emp_image_file" hidden class="btn">
-                                                <label for="upload" class="upload">Choose file</label>
-                                              </div>
-                              
-                                                <div >
-                                                   <label class="label_field hidden">hidden label</label>
-                                                </div>
-                                                <div class="field">
-                                                   <label class="label_field">Employee ID</label>
-                                                   <input type="number" name="emp_id" placeholder="Employee ID" />
-                                                </div>
-                                                <div class="field">
-                                                   <label class="label_field">First Name</label>
-                                                   <input type="text" name="first_name" placeholder="First Name" />
-                                                </div>
-                                                <div class="field">
-                                                   <label class="label_field">Last Name</label>
-                                                   <input type="text" name="last_name" placeholder="Last Name" />
-                                                </div>
-                                                <div class="field">
-                                                   <label class="label_field">Primary Skill</label>
-                                                   <input type="text" name="pri_skill" placeholder="Primary Skill" />
-                                                </div>
-                                                <div class="field">
-                                                   <label class="label_field">Location</label>
-                                                   <input type="text" name="location" placeholder="Location" />
-                                                </div>
+<body class="inner_page profile_page">
 
-                                                <div >
-                                                   <label class="label_field hidden">hidden label</label>
-                                                </div>
-                                                <div>
-                                                   <label class="label_field hidden">hidden label</label>
-                                                   <button type="submit" class="btnAdd">Add</button>
-                                                </div>
-                                           
-                                          </form>
-                                      
-                                       </div>
-                                    
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-md-2"></div>
-                        </div>
-                        <!-- end row -->
-                     </div>
-                     <!-- footer -->
-                     <div class="container-fluid">
-                        <div class="footer">
-                           <p>Copyright © 2018 Designed by html.design. All rights reserved.<br><br>
-                              Distributed By: <a href="https://themewagon.com/">ThemeWagon</a>
-                           </p>
-                        </div>
-                     </div>
-                  </div>
-                  <!-- end dashboard inner -->
-               </div>
-            </div>
-         </div>
-      </div>
-      <!-- jQuery -->
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-      <!-- wow animation -->
-      <script src="js/animate.js"></script>
-      <!-- select country -->
-      <script src="js/bootstrap-select.js"></script>
-      <!-- owl carousel -->
-      <script src="js/owl.carousel.js"></script> 
-      <!-- chart js -->
-      <script src="js/Chart.min.js"></script>
-      <script src="js/Chart.bundle.min.js"></script>
-      <script src="js/utils.js"></script>
-      <script src="js/analyser.js"></script>
-      <!-- nice scrollbar -->
-      <script src="js/perfect-scrollbar.min.js"></script>
-      <script>
-         var ps = new PerfectScrollbar('#sidebar');
-      </script>
-      <!-- custom js -->
-      <script src="js/custom.js"></script>
-      <!-- calendar file css -->    
-      <script src="js/semantic.min.js"></script>
-   </body>
+	<div class="full_container">
+		<div class="inner_container">
+			<!-- Sidebar  -->
+			<nav id="sidebar">
+				<div class="sidebar_blog_2">
+					<form action="/listemp" autocomplete="on" method="POST" enctype="multipart/form-data">
+						<div class="logo_section">
+							<button type="submit" class="btnSideBar" formaction="/"><img class="img-responsive"
+									src="{{ url_for('static',filename='assets/vendor/bootstrap/images/logo/logo.png') }}"
+									alt="#" /></button>
+
+						</div>
+						<ul class="list-unstyled components">
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/listEmp"><i
+										class="fa fa-table purple_color2"></i> <span>Staff Listing</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/goAdd"><i
+										class="fa fa-table purple_color2"></i> <span>Add Staff</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/displayDoc"><i
+										class="fa fa-table purple_color2"></i> <span>Document Listing</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/goUploadDoc"><i
+										class="fa fa-table purple_color2"></i> <span>Upload Document</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/about"><i
+										class="fa fa-table purple_color2"></i> <span>About Us</span></button>
+							</li>
+						</ul>
+					</form>
+					</ul>
+				</div>
+			</nav>
+			<!-- end sidebar -->
+			<!-- right content -->
+			<div id="content">
+				<!-- topbar -->
+				<!-- end topbar -->
+				<!-- dashboard inner -->
+				<div class="midde_cont">
+					<div class="container-fluid">
+						<div class="row column_title">
+							<div class="col-md-12">
+								<div class="page_title">
+									<h2>Add New Staff</h2>
+								</div>
+							</div>
+						</div>
+						<!-- row -->
+						<div class="row column1">
+							<div class="col-md-2"></div>
+							<div class="col-md-8">
+								<div class="white_shd full margin_bottom_30">
+									<div class="full graph_head">
+										<div class="heading1 margin_0">
+											<h2>Add New Staff</h2>
+										</div>
+									</div>
+
+									<div class="full price_table padding_infor_info">
+										<div class="row">
+											<div class="add">
+												<form action="/addemp" autocomplete="on" method="POST"
+													enctype="multipart/form-data">
+													<div class="container1">
+														<!-- put default pic -->
+														<img width="90" class="rounded-circle"
+															src="{{ url_for('static',filename='assets/vendor/bootstrap/images/layout_img/user_img.jpg') }}"
+															alt="#">
+														<input type="file" id="upload" name="emp_image_file" hidden
+															class="btn">
+														<label for="upload" class="upload">Choose file</label>
+													</div>
+
+													<div>
+														<label class="label_field hidden">hidden label</label>
+													</div>
+													<div class="field">
+														<label class="label_field">Employee ID</label>
+														<input type="number" name="emp_id" placeholder="Employee ID" />
+													</div>
+													<div class="field">
+														<label class="label_field">First Name</label>
+														<input type="text" name="first_name" placeholder="First Name" />
+													</div>
+													<div class="field">
+														<label class="label_field">Last Name</label>
+														<input type="text" name="last_name" placeholder="Last Name" />
+													</div>
+													<div class="field">
+														<label class="label_field">Primary Skill</label>
+														<input type="text" name="pri_skill"
+															placeholder="Primary Skill" />
+													</div>
+													<div class="field">
+														<label class="label_field">Location</label>
+														<input type="text" name="location" placeholder="Location" />
+													</div>
+
+													<div>
+														<label class="label_field hidden">hidden label</label>
+													</div>
+													<div>
+														<label class="label_field hidden">hidden label</label>
+														<button type="submit" class="btnAdd">Add</button>
+													</div>
+
+												</form>
+
+											</div>
+
+										</div>
+									</div>
+								</div>
+								<div class="col-md-2"></div>
+							</div>
+							<!-- end row -->
+						</div>
+						<!-- footer -->
+						<div class="container-fluid">
+							<div class="footer">
+								<p>Copyright © 2018 Designed by html.design. All rights reserved.<br><br>
+									Distributed By: <a href="https://themewagon.com/">ThemeWagon</a>
+								</p>
+							</div>
+						</div>
+					</div>
+					<!-- end dashboard inner -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<!-- wow animation -->
+	<script src="js/animate.js"></script>
+	<!-- select country -->
+	<script src="js/bootstrap-select.js"></script>
+	<!-- owl carousel -->
+	<script src="js/owl.carousel.js"></script>
+	<!-- chart js -->
+	<script src="js/Chart.min.js"></script>
+	<script src="js/Chart.bundle.min.js"></script>
+	<script src="js/utils.js"></script>
+	<script src="js/analyser.js"></script>
+	<!-- nice scrollbar -->
+	<script src="js/perfect-scrollbar.min.js"></script>
+	<script>
+		var ps = new PerfectScrollbar('#sidebar');
+	</script>
+	<!-- custom js -->
+	<script src="js/custom.js"></script>
+	<!-- calendar file css -->
+	<script src="js/semantic.min.js"></script>
+</body>
+
 </html>
