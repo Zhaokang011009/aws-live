@@ -45,6 +45,10 @@ def uploadFilePage():
 def addLeavePage(): 
     return render_template('ApplyLeave.html')
 
+@app.route("/goRegisterTraining", methods=['POST'])
+def addTrainingPage():
+    return render_template('AddTraining.html')
+
 @app.route("/listEmp", methods=['POST'])
 def displayEmp():
     cursor = db_conn.cursor()
@@ -74,6 +78,17 @@ def displayLeave():
     leaveList = cursor.fetchall()
     cursor.close()
     return render_template('DisplayLeave.html', leaveList = leaveList)
+
+@app.route("/listTraining", methods=['POST'])
+def displayTraining():
+    cursor = db_conn.cursor()
+    select_t_sql = "Select t.t_id, t.t_name, t.t_date, t.t_time, e.first_name, e.last_name FROM employee as e, trainingClass as t WHERE e.emp_id = t.t_emp_id"
+    cursor.execute(select_t_sql)
+    trainingList = cursor.fetchall()
+    print(trainingList)
+    cursor.close()
+
+    return render_template('DisplayTraining.html', trainingList = trainingList)
 
 #CRUD employee function
 
@@ -138,6 +153,18 @@ def getEmp():
     cursor.close()
 
     return render_template('GetEmp.html', empData = employee, bucketName = bucket, docList = docList)
+
+@app.route("/searchEmp", methods=['POST'])
+def searchEmp():
+    emp_search_name = request.form['emp_name']
+    search_emp_sql = "SELECT * FROM employee WHERE first_name = %s OR last_name = %s"
+    cursor = db_conn.cursor()
+    cursor.execute(search_emp_sql, (emp_search_name, emp_search_name))
+    employeeList = cursor.fetchall()
+    cursor.close()
+
+    return render_template('DisplayEmployee.html', empList = employeeList, bucketName = bucket)
+
 
 @app.route("/updateEmp", methods=['POST'])
 def EditEmp():
@@ -242,7 +269,7 @@ def uploadFile():
             doc_to_upload_s3)
 
     cursor.close()
-    return render_template('testDoc.html', filename = doc_to_upload_s3)
+    return render_template('Home.html')
 
 @app.route("/removeDoc", methods=['POST'])
 def removeDoc():
@@ -284,6 +311,72 @@ def addLeave():
     db_conn.commit()
     cursor.close()
     return render_template('Home.html')
+
+#training function
+@app.route("/addTraining", methods=['POST'])
+def addTraining():
+    empID = request.form['T_emp_ID']
+    trainClass = request.form['T_name']
+    date = request.form['T_date']
+    time = request.form['T_time']
+
+    T_insert_sql = "INSERT INTO trainingClass VALUES (%s, %s, %s, %s, %s)"
+    T_count_sql = "SELECT COUNT(t_id)+1 FROM trainingClass"
+
+    #get count
+    cursor = db_conn.cursor()
+    cursor.execute(T_count_sql)
+    totalCountClass = cursor.fetchone()
+    cursor.close()
+
+    T_id_str = "T" + str(totalCountClass[0])
+    cursor = db_conn.cursor()
+
+    if empID == "":
+        return "Please Enter Employee ID"
+    elif date =="":
+         return "Please Enter Date"
+    elif time =="":
+        return "Please Enter Time"
+    else: 
+        cursor.execute(T_insert_sql, (T_id_str, trainClass, date, time, empID))
+        db_conn.commit()
+
+
+    cursor.close()
+    return render_template('Home.html')
+
+@app.route("/removeTraining", methods=['POST'])
+def removeTraining():
+    cursor = db_conn.cursor()
+    id = request.form['t_id']
+    remove_sql = "Delete from trainingClass WHERE t_id = %s"
+
+    #remove data
+    cursor.execute(remove_sql, id)
+    db_conn.commit()
+    cursor.close()
+
+    cursor = db_conn.cursor()
+    select_t_sql = "Select t.t_id, t.t_name, t.t_date, t.t_time, e.first_name, e.last_name FROM employee as e, trainingClass as t WHERE e.emp_id = t.t_emp_id"
+    cursor.execute(select_t_sql)
+    trainingList = cursor.fetchall()
+    print(trainingList)
+    cursor.close()
+
+    return render_template('DisplayTraining.html', trainingList = trainingList)
+
+@app.route("/filterTraining", methods=['POST'])
+def filterTraining():
+    cursor = db_conn.cursor()
+    dateToday = date.today()
+    select_t_sql = "Select t.t_id, t.t_name, t.t_date, t.t_time, e.first_name, e.last_name FROM employee as e, trainingClass as t WHERE e.emp_id = t.t_emp_id AND t.t_date = %s"
+    cursor.execute(select_t_sql, dateToday)
+    trainingList = cursor.fetchall()
+    print(trainingList)
+    cursor.close()
+
+    return render_template('DisplayTraining.html', trainingList = trainingList)
 
 if __name__ == '__main__':
     
