@@ -15,37 +15,45 @@
                                 src="{{ url_for('static',filename='assets/vendor/bootstrap/images/logo/logo.png')}}"
                                 alt="#" /></a>
                     </div>
-                    <form action="/listemp" autocomplete="on" method="POST" enctype="multipart/form-data">
+                    <form autocomplete="on" method="POST" enctype="multipart/form-data">
                         <ul class="list-unstyled components">
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/listEmp"><i
+										class="fa fa-table purple_color2"></i> <span>Staff List</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/goAdd"><i
+										class="fa fa-table purple_color2"></i> <span>Add Staff</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/listDoc"><i
+										class="fa fa-table purple_color2"></i> <span>Document List</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/goUploadDoc"><i
+										class="fa fa-table purple_color2"></i> <span>Upload Document</span></button>
+							</li>
                             <li>
-                                <button type="submit" class="btnSideBar" formaction="/listEmp"><i
-                                        class="fa fa-table purple_color2"></i> <span>Staff List</span></button>
-                            </li>
-                            <li>
-                                <button type="submit" class="btnSideBar" formaction="/goAdd"><i
-                                        class="fa fa-table purple_color2"></i> <span>Add Staff</span></button>
-                            </li>
-                            <li>
-                                <button type="submit" class="btnSideBar" formaction="/listDoc"><i
-                                        class="fa fa-table purple_color2"></i> <span>Document List</span></button>
-                            </li>
-                            <li>
-                                <button type="submit" class="btnSideBar" formaction="/goUploadDoc"><i
-                                        class="fa fa-table purple_color2"></i> <span>Upload Document</span></button>
-                            </li>
-                            <li>
-                                <button type="submit" class="btnSideBar" formaction="/listLeave"><i
-                                        class="fa fa-table purple_color2"></i> <span>Leave List</span></button>
-                            </li>
-                            <li>
-                                <button type="submit" class="btnSideBar" formaction="/goAddLeave"><i
-                                        class="fa fa-table purple_color2"></i> <span>Apply Leave</span></button>
-                            </li>
-                            <li>
-                                <button type="submit" class="btnSideBar" formaction="/about"><i
-                                        class="fa fa-table purple_color2"></i> <span>About Us</span></button>
-                            </li>
-                        </ul>
+								<button type="submit" class="btnSideBar" formaction="/listTraining"><i
+										class="fa fa-table purple_color2"></i> <span>Training List</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/goRegisterTraining"><i
+										class="fa fa-table purple_color2"></i> <span>Register Training</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/listLeave"><i
+										class="fa fa-table purple_color2"></i> <span>Leave List</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/goAddLeave"><i
+										class="fa fa-table purple_color2"></i> <span>Apply Leave</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/about"><i
+										class="fa fa-table purple_color2"></i> <span>About Us</span></button>
+							</li>
+						</ul>
                     </form>
 
 

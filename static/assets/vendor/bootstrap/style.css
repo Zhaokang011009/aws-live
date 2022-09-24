@@ -3505,7 +3505,6 @@ table.projects tr td:first-child {
     27. custom
 -------------------------------------------------------------------*/
 .btnList {
-    width: 25%;
     height: auto;
     float: center;
     background: #1ed085;
@@ -3521,7 +3520,6 @@ table.projects tr td:first-child {
 }
 
 .btnRemove {
-    width: 25%;
     height: auto;
     float: center;
     background: #d01e1e;
@@ -3735,4 +3733,12 @@ border: hidden;
   
   .file-input.-chosen > .label {
     opacity: 1;
+  }
+
+  .successfulContainer{
+    width: 100%;
+    padding: 10px 50px;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
   }
