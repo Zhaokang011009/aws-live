@@ -1,42 +1,44 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    	<!-- basic -->
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<!-- mobile metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
-	<!-- site metas -->
-	<title>About Us</title>
-	<meta name="keywords" content="">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<!-- site icon -->
-	<link rel="icon" href="images/fevicon.png"
-		type="{{ url_for('static',filename='assets/vendor/bootstrap/image/png') }}" />
-	<!-- bootstrap css -->
-	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}" />
-	<!-- site css -->
-	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/style.css') }}" />
-	<!-- responsive css -->
-	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/responsive.css') }}" />
-	<!-- color css -->
-	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/colors.css') }}" />
-	<!-- select bootstrap -->
-	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/bootstrap-select.css')}}" />
-	<!-- scrollbar css -->
-	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/perfect-scrollbar.css')}}" />
-	<!-- custom css -->
-	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/custom.css')}}" />
-	<!-- calendar file css -->
-	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/js/semantic.min.css')}}" />
-	<!--[if lt IE 9]>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>About Us</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- site icon -->
+    <link rel="icon" href="images/fevicon.png"
+        type="{{ url_for('static',filename='assets/vendor/bootstrap/image/png') }}" />
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}" />
+    <!-- site css -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/style.css') }}" />
+    <!-- responsive css -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/responsive.css') }}" />
+    <!-- color css -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/colors.css') }}" />
+    <!-- select bootstrap -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/bootstrap-select.css')}}" />
+    <!-- scrollbar css -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/perfect-scrollbar.css')}}" />
+    <!-- custom css -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/custom.css')}}" />
+    <!-- calendar file css -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/js/semantic.min.css')}}" />
+    <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
 
 </head>
+
 <body class="inner_page tables_page">
 
     <div class="full_container">
@@ -51,44 +53,47 @@
                     </div>
                     <form autocomplete="on" method="POST" enctype="multipart/form-data">
                         <ul class="list-unstyled components">
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/listEmp"><i
-										class="fa fa-user orange_color2"></i> <span>Employee List</span></button>
-							</li>
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/goAdd"><i
-										class="fa fa-user-plus yellow_color"></i> <span>Add Employee</span></button>
-							</li>
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/listDoc"><i
-										class="fa fa-file blue2_color"></i> <span>Document List</span></button>
-							</li>
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/goUploadDoc"><i
-										class="fa fa-cloud-upload green_color"></i> <span>Upload Document</span></button>
-							</li>
                             <li>
-								<button type="submit" class="btnSideBar" formaction="/listTraining"><i>
-                                    <img style="width: fit-content; height: 25px; background: white;" src="{{ url_for('static',filename='assets/vendor/bootstrap/images/layout_img/training_icon.png')}}"> </i> 
-                                        <span>Training List</span></button>
-							</li>
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/goRegisterTraining"><i
-										class="fa fa-user purple_color2"></i> <span>Register Training</span></button>
-							</li>
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/listLeave"><i
-										class="fa fa-calendar orange_color2"></i> <span>Leave List</span></button>
-							</li>
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/goAddLeave"><i
-										class="fa fa-calendar-plus-o red_color"></i> <span>Apply Leave</span></button>
-							</li>
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/about"><i
-										class="fa fa-info orange_color2"></i> <span>About Us</span></button>
-							</li>
-						</ul>
+                                <button type="submit" class="btnSideBar" formaction="/listEmp"><i
+                                        class="fa fa-user orange_color2"></i> <span>Employee List</span></button>
+                            </li>
+                            <li>
+                                <button type="submit" class="btnSideBar" formaction="/goAdd"><i
+                                        class="fa fa-user-plus yellow_color"></i> <span>Add Employee</span></button>
+                            </li>
+                            <li>
+                                <button type="submit" class="btnSideBar" formaction="/listDoc"><i
+                                        class="fa fa-file blue2_color"></i> <span>Document List</span></button>
+                            </li>
+                            <li>
+                                <button type="submit" class="btnSideBar" formaction="/goUploadDoc"><i
+                                        class="fa fa-cloud-upload green_color"></i> <span>Upload
+                                        Document</span></button>
+                            </li>
+                            <li>
+                                <button type="submit" class="btnSideBar" formaction="/listTraining"><i>
+                                        <img style="width: fit-content; height: 25px; background: white;"
+                                            src="{{ url_for('static',filename='assets/vendor/bootstrap/images/layout_img/training_icon.png')}}">
+                                    </i>
+                                    <span>Training List</span></button>
+                            </li>
+                            <li>
+                                <button type="submit" class="btnSideBar" formaction="/goRegisterTraining"><i
+                                        class="fa fa-user purple_color2"></i> <span>Register Training</span></button>
+                            </li>
+                            <li>
+                                <button type="submit" class="btnSideBar" formaction="/listLeave"><i
+                                        class="fa fa-calendar orange_color2"></i> <span>Leave List</span></button>
+                            </li>
+                            <li>
+                                <button type="submit" class="btnSideBar" formaction="/goAddLeave"><i
+                                        class="fa fa-calendar-plus-o red_color"></i> <span>Apply Leave</span></button>
+                            </li>
+                            <li>
+                                <button type="submit" class="btnSideBar" formaction="/about"><i
+                                        class="fa fa-info orange_color2"></i> <span>About Us</span></button>
+                            </li>
+                        </ul>
                     </form>
 
                 </div>
@@ -110,53 +115,135 @@
                         </div>
                         <!-- row -->
                         <div class="row">
-                            <!-- table section -->
-                            <div class="col-md-12">
-                                <div class="white_shd full margin_bottom_30">
+                            <div class="row">
+                                <!-- table section -->
+                                <div class="col-md-12">
+                                    <div class="white_shd full margin_bottom_30">
+                                        <div style="width:70%; text-align: center; margin: auto;">
+                                            <label class="label_field hidden">hidden label</label>
+                                            <p style="line-height: 30px; font-size: 16px;">
+                                                John & Moon Sdn Bhd is an organization that mainly managing and
+                                                optimizing daily human resources tasks and overall HR goals.
+                                                And this website is a online human resoure webpage for the organization
+                                                to managing the employee and store document with purpose
+                                                of let manager to better allocate their time and resources to be more
+                                                productive.
+                                                The web page is fully private for the organization's staffs and manager,
+                                                users only able to visit the John & Moon
+                                                webpage after the admin share the permission to the users.
+                                                The web page had provide a lot of features such as applying leave,
+                                                register training for employee and
+                                                storing document from employees and management of employees.
+                                            </p>
+                                            <label class="label_field hidden">hidden label</label>
+                                        </div>
+                                    </div>
+                                    <div class="white_shd full margin_bottom_30">
+                                        <div style="text-align: left;">
+                                            <label class="label_field hidden">hidden label</label>
+                                            <h2 style="padding-left:50px;">Web Page Developer</h2><br>
+                                            <label class="label_field hidden">hidden label</label>
+                                            <center>
+                                                <table style="text-align: center;">
+                                                    <tr>
+                                                        <td><img style="width: 300px; height: 350px;" src="{{ url_for('static',filename='assets/vendor/bootstrap/images/layout_img/HZK.jpg') }}"
+                                                                alt="#"></td>
+                                                        <td><label class="label_field hidden">hidden label</label></td>
+                                                        <td><img style="width: 300px; height: 350px;" src="{{ url_for('static',filename='assets/vendor/bootstrap/images/layout_img/WYX.jpg') }}"
+                                                                alt="#"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <h3>Hoi Zhao Kang</h3>
+                                                        </td>
+                                                        <td><label class="label_field hidden">hidden label</label></td>
+                                                        <td>
+                                                            <h3>Wong Yi Xuan</h3>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <p>Student of Bachelor of Computer Science (Honours) in
+                                                                Software Engineering</p>
+                                                        </td>
+                                                        <td><label class="label_field hidden">hidden label</label></td>
+                                                        <td>
+                                                            <p>Student of Bachelor of Computer Science (Honours) in
+                                                                Software Engineering</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <p style="width:70%; text-align: center; margin: auto;">
+                                                                He is the leader of development team in this website
+                                                                project. He has 5 years of experiences on programming
+                                                                fields,
+                                                                especially on the html and javascript code. He also have
+                                                                2 years of experience working under Microsoft company.
+                                                            </p>
+                                                        </td>
+                                                        <td><label class="label_field hidden">hidden label</label></td>
+                                                        <td>
+                                                            <p style="width:70%; text-align: center; margin: auto;">
+                                                                He is the assistant leader of the development team in
+                                                                this website project. He has 4 years of experiences on
+                                                                programming fields
+                                                                and he is more familiar with Python code. He also have 3
+                                                                years of experience working under Google company. 
+                                                            </p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label class="label_field hidden">hidden label</label></td>
+                                                    </tr>
+                                                </table>
+                                            </center>
+                                        </div>
+                                    </div>
+                                </div>
 
+
+                                <!-- footer -->
+                                <div class="container-fluid">
+                                    <div class="footer">
+                                        <p>© Copyright 2022: John & Moon Sdn Bhd.</p>
+                                    </div>
                                 </div>
                             </div>
-
-
-                            <!-- footer -->
-                            <div class="container-fluid">
-                                <div class="footer">
-                                    <p>© Copyright 2022: John & Moon Sdn Bhd.</p>
-                                </div>
-                            </div>
+                            <!-- end dashboard inner -->
                         </div>
-                        <!-- end dashboard inner -->
                     </div>
-                </div>
 
-            </div>
-            <!-- jQuery -->
-            <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/jquery.min.js')}}"></script>
-            <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/popper.min.js')}}"></script>
-            <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
-            <!-- wow animation -->
-            <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/animate.js')}}"></script>
-            <!-- select country -->
-            <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/bootstrap-select.js')}}"></script>
-            <!-- owl carousel -->
-            <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/owl.carousel.js')}}"></script>
-            <!-- chart js -->
-            <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/Chart.min.js')}}"></script>
-            <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/Chart.bundle.min.js')}}"></script>
-            <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/utils.js')}}"></script>
-            <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/analyser.js')}}"></script>
-            <!-- nice scrollbar -->
-            <script
-                src="{{ url_for('static',filename='assets/vendor/bootstrap/js/perfect-scrollbar.min.js')}}"></script>
-            <script>
-                var ps = new PerfectScrollbar('#sidebar');
-            </script>
-            <!-- fancy box js -->
-            <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/jquery-3.3.1.min.js')}}"></script>
-            <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/jquery.fancybox.min.js')}}"></script>
-            <!-- custom js -->
-            <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/custom.js')}}"></script>
-            <!-- calendar file css -->
-            <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/semantic.min.js')}}"></script>
+                </div>
+                <!-- jQuery -->
+                <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/jquery.min.js')}}"></script>
+                <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/popper.min.js')}}"></script>
+                <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+                <!-- wow animation -->
+                <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/animate.js')}}"></script>
+                <!-- select country -->
+                <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/bootstrap-select.js')}}"></script>
+                <!-- owl carousel -->
+                <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/owl.carousel.js')}}"></script>
+                <!-- chart js -->
+                <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/Chart.min.js')}}"></script>
+                <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/Chart.bundle.min.js')}}"></script>
+                <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/utils.js')}}"></script>
+                <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/analyser.js')}}"></script>
+                <!-- nice scrollbar -->
+                <script
+                    src="{{ url_for('static',filename='assets/vendor/bootstrap/js/perfect-scrollbar.min.js')}}"></script>
+                <script>
+                    var ps = new PerfectScrollbar('#sidebar');
+                </script>
+                <!-- fancy box js -->
+                <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/jquery-3.3.1.min.js')}}"></script>
+                <script
+                    src="{{ url_for('static',filename='assets/vendor/bootstrap/js/jquery.fancybox.min.js')}}"></script>
+                <!-- custom js -->
+                <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/custom.js')}}"></script>
+                <!-- calendar file css -->
+                <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/semantic.min.js')}}"></script>
 </body>
+
 </html>

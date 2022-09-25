@@ -344,7 +344,7 @@ def addLeave():
     cursor.execute(add_leave_sql, (leave_id, str(date.today()), str(leave_from_date), str(leave_to_date), reason_apply, emp_id_leave))
     db_conn.commit()
     cursor.close()
-    return render_template('AddLeaveSuccessful.html', empName = empName)
+    return render_template('ApplyLeaveSuccessful.html', empName = empName)
 
 @app.route("/removeLeave", methods=['POST'])
 def removeLeave():
