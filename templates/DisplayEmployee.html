@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>Pluto - Responsive Bootstrap Admin Panel Templates</title>
+    <title>Employee List</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -46,33 +46,49 @@
             <nav id="sidebar">
                 <div class="sidebar_blog_2">
                     <div class="logo_section">
-                        <a href="/"><img class="img-responsive"
+                        <a href="/"><img style="width: 100%;height: 150px;" class="img-responsive"
                                 src="{{ url_for('static',filename='assets/vendor/bootstrap/images/logo/logo.png')}}"
                                 alt="#" /></a>
                     </div>
                     <form action="/listemp" autocomplete="on" method="POST" enctype="multipart/form-data">
                         <ul class="list-unstyled components">
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/listEmp"><i
+										class="fa fa-table purple_color2"></i> <span>Employee List</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/goAdd"><i
+										class="fa fa-table purple_color2"></i> <span>Add Employee</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/listDoc"><i
+										class="fa fa-table purple_color2"></i> <span>Document List</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/goUploadDoc"><i
+										class="fa fa-table purple_color2"></i> <span>Upload Document</span></button>
+							</li>
                             <li>
-                                <button type="submit" class="btnSideBar" formaction="/listEmp"><i
-                                        class="fa fa-table purple_color2"></i> <span>Staff Listing</span></button>
-                            </li>
-                            <li>
-                                <button type="submit" class="btnSideBar" formaction="/goAdd"><i
-                                        class="fa fa-table purple_color2"></i> <span>Add Staff</span></button>
-                            </li>
-                            <li>
-                                <button type="submit" class="btnSideBar" formaction="/displayDoc"><i
-                                        class="fa fa-table purple_color2"></i> <span>Document Listing</span></button>
-                            </li>
-                            <li>
-                                <button type="submit" class="btnSideBar" formaction="/goUploadDoc"><i
-                                        class="fa fa-table purple_color2"></i> <span>Upload Document</span></button>
-                            </li>
-                            <li>
-                                <button type="submit" class="btnSideBar" formaction="/about"><i
-                                        class="fa fa-table purple_color2"></i> <span>About Us</span></button>
-                            </li>
-                        </ul>
+								<button type="submit" class="btnSideBar" formaction="/listTraining"><i
+										class="fa fa-table purple_color2"></i> <span>Training List</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/goRegisterTraining"><i
+										class="fa fa-table purple_color2"></i> <span>Register Training</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/listLeave"><i
+										class="fa fa-table purple_color2"></i> <span>Leave List</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/goAddLeave"><i
+										class="fa fa-table purple_color2"></i> <span>Apply Leave</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/about"><i
+										class="fa fa-table purple_color2"></i> <span>About Us</span></button>
+							</li>
+						</ul>
                     </form>
 
 
@@ -89,7 +105,7 @@
                         <div class="row column_title">
                             <div class="col-md-12">
                                 <div class="page_title">
-                                    <h2>Staff Listing</h2>
+                                    <h2>Employee Listing</h2>
                                 </div>
                             </div>
                         </div>
@@ -100,24 +116,20 @@
                                 <div class="white_shd full margin_bottom_30">
                                     <div class="full graph_head">
                                         <div class="heading1 margin_0">
-                                            <h2>Staff Listing</h2>
+                                            <h2>Employee Listing</h2>
                                         </div>
                                         <div class="right_topbar">
-                                            <div class="dropdown_section">
-                                                <div class="dropdown">
-                                                    <form action="/listemp" autocomplete="on" method="POST"
-                                                        enctype="multipart/form-data">
-                                                        <button type="button" class="btn btn-primary dropdown-toggle"
-                                                            data-toggle="dropdown">Manage</button>
-                                                        <div class="dropdown-menu">
-                                                            <button class="dropdown-item" type="submit"
-                                                                formaction="/">Add Staff</button>
-                                                            <a class="dropdown-item" style="color: rgb(223, 25, 25);"
-                                                                href="#">Remove Staff</a>
-                                                        </div>
-                                                    </form>
+                                            <form action="/searchEmp" method="post">
+                                                <div class="input-append">
+                                                    <div class="inbox-head" style="float: left; padding: 0px 24px 0px 0px; min-height: unset; background: unset;">
+                                                        <input type="text" class="sr-input" name="emp_name"
+                                                            placeholder="Search Employee Name">
+                                                        <button class="btn sr-btn" type="submit"><i class="fa fa-search"></i></button>
+                                                    </div>
                                                 </div>
-                                            </div>
+
+                                            </form>
+
                                         </div>
                                     </div>
                                     <div class="table_section padding_infor_info">
@@ -133,25 +145,22 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {% for row in empList %}
+                                                    {% for rows in empList %}
                                                     <tr>
                                                         <td> <img
-                                                                src="https://{{bucketName}}.s3.amazonaws.com/emp-id-{{row[0]}}_image_file.png"
+                                                                src="https://{{bucketName}}.s3.amazonaws.com/emp-id-{{rows[0]}}_image_file.png"
                                                                 width="100px" height="100px"></td>
-                                                        <td>{{row[1]}} {{row[2]}}</td>
-                                                        <td>{{row[3]}}</td>
-                                                        <td>{{row[4]}}</td>
+                                                        <td>{{rows[1]}} {{rows[2]}}</td>
+                                                        <td>{{rows[3]}}</td>
+                                                        <td>{{rows[4]}}</td>
                                                         <td>
-                                                            <form action="/getEmp" method="POST">
-                                                                <button action="/getEmp" type="submit"
-                                                                    formaction="/getEmp" name="emp_IDs" class="btnList"
-                                                                    value="{{row[0]}}">
+                                                            <form action="/edtEmp" method="POST">
+                                                                <button type="submit"
+                                                                    formaction="/edtEmp" name="emp_IDs" class="btnList"
+                                                                    value="{{rows[0]}}">
                                                                     Edit
                                                                 </button>
-                                                            </form>
-
-                                                            <form action="/removeEmp" method="POST">
-                                                                <button type="submit" name="emp_IDs" value="{{row[0]}}"
+                                                                <button type="submit" formaction="/removeEmp" name="emp_IDs" value="{{rows[0]}}"
                                                                     class="btnRemove">Remove</button>
                                                             </form>
                                                         </td>
@@ -168,7 +177,7 @@
                             <!-- footer -->
                             <div class="container-fluid">
                                 <div class="footer">
-                                    <p>Copyright © 2018 Designed by html.design. All rights reserved.</p>
+                                    <p>© Copyright 2022: John & Moon Sdn Bhd.</p>
                                 </div>
                             </div>
                         </div>

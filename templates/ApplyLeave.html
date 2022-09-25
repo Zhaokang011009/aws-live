@@ -1,43 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <!-- basic -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- mobile metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-    <!-- site metas -->
-    <title>Home</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- site icon -->
-    <link rel="icon" href="images/fevicon.png"
-        type="{{ url_for('static',filename='assets/vendor/bootstrap/image/png') }}" />
-    <!-- bootstrap css -->
-    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}" />
-    <!-- site css -->
-    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/style.css') }}" />
-    <!-- responsive css -->
-    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/responsive.css') }}" />
-    <!-- color css -->
-    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/colors.css') }}" />
-    <!-- select bootstrap -->
-    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/bootstrap-select.css')}}" />
-    <!-- scrollbar css -->
-    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/perfect-scrollbar.css')}}" />
-    <!-- custom css -->
-    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/custom.css')}}" />
-    <!-- calendar file css -->
-    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/js/semantic.min.css')}}" />
-    <!--[if lt IE 9]>
+	<title>Apply Leave</title>
+    	<!-- basic -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- mobile metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<!-- site metas -->
+	<title>Apply Leave</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!-- site icon -->
+	<link rel="icon" href="images/fevicon.png"
+		type="{{ url_for('static',filename='assets/vendor/bootstrap/image/png') }}" />
+	<!-- bootstrap css -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}" />
+	<!-- site css -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/style.css') }}" />
+	<!-- responsive css -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/responsive.css') }}" />
+	<!-- color css -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/colors.css') }}" />
+	<!-- select bootstrap -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/bootstrap-select.css')}}" />
+	<!-- scrollbar css -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/perfect-scrollbar.css')}}" />
+	<!-- custom css -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/css/custom.css')}}" />
+	<!-- calendar file css -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/js/semantic.min.css')}}" />
+	<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
 </head>
-
 <body class="inner_page tables_page">
 
     <div class="full_container">
@@ -50,7 +49,7 @@
                                 src="{{ url_for('static',filename='assets/vendor/bootstrap/images/logo/logo.png')}}"
                                 alt="#" /></a>
                     </div>
-                    <form autocomplete="on" method="POST" enctype="multipart/form-data">
+                    <form action="/listemp" autocomplete="on" method="POST" enctype="multipart/form-data">
                         <ul class="list-unstyled components">
 							<li>
 								<button type="submit" class="btnSideBar" formaction="/listEmp"><i
@@ -105,19 +104,46 @@
                         <div class="row column_title">
                             <div class="col-md-12">
                                 <div class="page_title">
-                                    <h2>Home</h2>
+                                    <h2>Apply Leave for Employee</h2>
                                 </div>
                             </div>
                         </div>
                         <!-- row -->
                         <div class="row">
-                            <!-- table section -->
-                            <div class="col-md-12">
-                                <div class="white_shd full margin_bottom_30">
-
-                                </div>
+                            <div class="edit">
+                                <form action="/addLeave" method="POST" enctype="multipart/form-data">
+                                    <fieldset>
+                                        <div>
+                                            <label class="label_field hidden">hidden label</label>
+                                            <br><br>
+                                        </div>
+                                        <div class="field">
+                                            <label class="label_field">Employee ID: </label>
+                                            <input type="number" name="emp_id_leave"
+                                                placeholder="Employee ID"/>
+                                        </div>
+                                        <div class="field">
+                                            <label class="label_field">From: </label>
+                                            <input type="date" name="leave_from_date"
+                                                placeholder="From Date"/>
+                                        </div>
+                                        <div class="field">
+                                            <label class="label_field">To: </label>
+                                            <input type="date" name="leave_to_date"
+                                                placeholder="From Date"/>
+                                        </div>
+                                        <div class="field">
+                                            <label class="label_field">Reason (maximum 500 characters): </label>
+                                            <textarea name="reason_apply" cols="20" rows="5"></textarea>
+                                        </div>
+                                        <div>
+                                            <label class="label_field hidden">hidden label</label>
+                                            <button type="submit" class="btnEdit"
+                                                method="GET">Upload Leave</button>
+                                        </div>
+                                    </fieldset>
+                                </form>
                             </div>
-
 
                             <!-- footer -->
                             <div class="container-fluid">
@@ -160,5 +186,4 @@
             <!-- calendar file css -->
             <script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/semantic.min.js')}}"></script>
 </body>
-
 </html>

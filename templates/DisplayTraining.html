@@ -46,33 +46,49 @@
             <nav id="sidebar">
                 <div class="sidebar_blog_2">
                     <div class="logo_section">
-                        <a href="/"><img class="img-responsive"
+                        <a href="/"><img style="width: 100%;height: 150px;" class="img-responsive"
                                 src="{{ url_for('static',filename='assets/vendor/bootstrap/images/logo/logo.png')}}"
                                 alt="#" /></a>
                     </div>
                     <form action="/listemp" autocomplete="on" method="POST" enctype="multipart/form-data">
                         <ul class="list-unstyled components">
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/listEmp"><i
+										class="fa fa-table purple_color2"></i> <span>Staff List</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/goAdd"><i
+										class="fa fa-table purple_color2"></i> <span>Add Staff</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/listDoc"><i
+										class="fa fa-table purple_color2"></i> <span>Document List</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/goUploadDoc"><i
+										class="fa fa-table purple_color2"></i> <span>Upload Document</span></button>
+							</li>
                             <li>
-                                <button type="submit" class="btnSideBar" formaction="/listEmp"><i
-                                        class="fa fa-table purple_color2"></i> <span>Staff Listing</span></button>
-                            </li>
-                            <li>
-                                <button type="submit" class="btnSideBar" formaction="/goAdd"><i
-                                        class="fa fa-table purple_color2"></i> <span>Add Staff</span></button>
-                            </li>
-                            <li>
-                                <button type="submit" class="btnSideBar" formaction="/displayDoc"><i
-                                        class="fa fa-table purple_color2"></i> <span>Document Listing</span></button>
-                            </li>
-                            <li>
-                                <button type="submit" class="btnSideBar" formaction="/goUploadDoc"><i
-                                        class="fa fa-table purple_color2"></i> <span>Upload Document</span></button>
-                            </li>
-                            <li>
-                                <button type="submit" class="btnSideBar" formaction="/about"><i
-                                        class="fa fa-table purple_color2"></i> <span>About Us</span></button>
-                            </li>
-                        </ul>
+								<button type="submit" class="btnSideBar" formaction="/listTraining"><i
+										class="fa fa-table purple_color2"></i> <span>Training List</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/goRegisterTraining"><i
+										class="fa fa-table purple_color2"></i> <span>Register Training</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/listLeave"><i
+										class="fa fa-table purple_color2"></i> <span>Leave List</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/goAddLeave"><i
+										class="fa fa-table purple_color2"></i> <span>Apply Leave</span></button>
+							</li>
+							<li>
+								<button type="submit" class="btnSideBar" formaction="/about"><i
+										class="fa fa-table purple_color2"></i> <span>About Us</span></button>
+							</li>
+						</ul>
                     </form>
 
 
@@ -108,10 +124,10 @@
                                                     <form action="/listTraining" autocomplete="on" method="POST"
                                                         enctype="multipart/form-data">
                                                         <button type="button" class="btn btn-primary dropdown-toggle"
-                                                            data-toggle="dropdown">Manage</button>
+                                                            data-toggle="dropdown">Filter</button>
                                                         <div class="dropdown-menu">
                                                             <button class="dropdown-item" type="submit"
-                                                                formaction="/filterTraining">Filter</button>
+                                                                formaction="/filterTraining">Today</button>
                                                                 <button class="dropdown-item" type="submit"
                                                                 formaction="/listTraining">Clear</button>
                                                         </div>
@@ -126,6 +142,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
+                                                        <th>Class</th>
                                                         <th>Date</th>
                                                         <th>Time</th>
                                                         <th>Employee Name</th>
@@ -134,15 +151,16 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {% for row in trainingList %}
+                                                    {% for rows in trainingList %}
                                                     <tr>
-                                                        <td>{{row[0]}}</td>
-                                                        <td>{{row[1]}}</td>
-                                                        <td>{{row[2]}}</td>
-                                                        <td>{{row[3]}} {{row[4]}}</td>
+                                                        <td>{{rows[0]}}</td>
+                                                        <td>{{rows[1]}}</td>
+                                                        <td>{{rows[2]}}</td>
+                                                        <td>{{rows[3]}}</td>
+                                                        <td>{{rows[4]}} {{rows[5]}}</td>
                                                         <td>
                                                             <form action="/removeTraining" method="POST">
-                                                                <button type="submit" name="t_id" value="{{row[0]}}"
+                                                                <button type="submit" name="t_id" value="{{rows[0]}}"
                                                                     class="btnRemove">Remove</button>
                                                             </form>
                                                         </td>
@@ -159,7 +177,7 @@
                             <!-- footer -->
                             <div class="container-fluid">
                                 <div class="footer">
-                                    <p>Copyright © 2018 Designed by html.design. All rights reserved.</p>
+                                    <p>© Copyright 2022: John & Moon Sdn Bhd.</p>
                                 </div>
                             </div>
                         </div>
