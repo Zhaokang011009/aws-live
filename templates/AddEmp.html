@@ -45,53 +45,52 @@
 			<!-- Sidebar  -->
 			<nav id="sidebar">
 				<div class="sidebar_blog_2">
-					<form autocomplete="on" method="POST" enctype="multipart/form-data">
-						<div class="logo_section">
-							<button type="submit" class="btnSideBar" formaction="/"><img class="img-responsive"
-									src="{{ url_for('static',filename='assets/vendor/bootstrap/images/logo/logo.png') }}"
-									alt="#" /></button>
-
-						</div>
+                    <div class="logo_section">
+                        <a href="/"><img style="width: 100%;height: 150px;" class="img-responsive"
+                                src="{{ url_for('static',filename='assets/vendor/bootstrap/images/logo/logo.png')}}"
+                                alt="#" /></a>
+                    </div>
+                    <form action="/listemp" autocomplete="on" method="POST" enctype="multipart/form-data">
 						<ul class="list-unstyled components">
 							<li>
 								<button type="submit" class="btnSideBar" formaction="/listEmp"><i
-										class="fa fa-table purple_color2"></i> <span>Staff List</span></button>
+										class="fa fa-user orange_color2"></i> <span>Employee List</span></button>
 							</li>
 							<li>
 								<button type="submit" class="btnSideBar" formaction="/goAdd"><i
-										class="fa fa-table purple_color2"></i> <span>Add Staff</span></button>
+										class="fa fa-user-plus yellow_color"></i> <span>Add Employee</span></button>
 							</li>
 							<li>
 								<button type="submit" class="btnSideBar" formaction="/listDoc"><i
-										class="fa fa-table purple_color2"></i> <span>Document List</span></button>
+										class="fa fa-file blue2_color"></i> <span>Document List</span></button>
 							</li>
 							<li>
 								<button type="submit" class="btnSideBar" formaction="/goUploadDoc"><i
-										class="fa fa-table purple_color2"></i> <span>Upload Document</span></button>
+										class="fa fa-cloud-upload green_color"></i> <span>Upload Document</span></button>
 							</li>
                             <li>
-								<button type="submit" class="btnSideBar" formaction="/listTraining"><i
-										class="fa fa-table purple_color2"></i> <span>Training List</span></button>
+								<button type="submit" class="btnSideBar" formaction="/listTraining"><i>
+                                    <img style="width: fit-content; height: 25px; background: white;" src="{{ url_for('static',filename='assets/vendor/bootstrap/images/layout_img/training_icon.png')}}"> </i> 
+                                        <span>Training List</span></button>
 							</li>
 							<li>
 								<button type="submit" class="btnSideBar" formaction="/goRegisterTraining"><i
-										class="fa fa-table purple_color2"></i> <span>Register Training</span></button>
+										class="fa fa-user purple_color2"></i> <span>Register Training</span></button>
 							</li>
 							<li>
 								<button type="submit" class="btnSideBar" formaction="/listLeave"><i
-										class="fa fa-table purple_color2"></i> <span>Leave List</span></button>
+										class="fa fa-calendar orange_color2"></i> <span>Leave List</span></button>
 							</li>
 							<li>
 								<button type="submit" class="btnSideBar" formaction="/goAddLeave"><i
-										class="fa fa-table purple_color2"></i> <span>Apply Leave</span></button>
+										class="fa fa-calendar-plus-o red_color"></i> <span>Apply Leave</span></button>
 							</li>
 							<li>
 								<button type="submit" class="btnSideBar" formaction="/about"><i
-										class="fa fa-table purple_color2"></i> <span>About Us</span></button>
+										class="fa fa-info orange_color2"></i> <span>About Us</span></button>
 							</li>
 						</ul>
-					</form>
-					</ul>
+                    </form>
 				</div>
 			</nav>
 			<!-- end sidebar -->
@@ -105,7 +104,7 @@
 						<div class="row column_title">
 							<div class="col-md-12">
 								<div class="page_title">
-									<h2>Add New Staff</h2>
+									<h2>Add New Employee</h2>
 								</div>
 							</div>
 						</div>
@@ -116,7 +115,7 @@
 								<div class="white_shd full margin_bottom_30">
 									<div class="full graph_head">
 										<div class="heading1 margin_0">
-											<h2>Add New Staff</h2>
+											<h2>Add New Employee</h2>
 										</div>
 									</div>
 
@@ -127,7 +126,7 @@
 													enctype="multipart/form-data">
 													<div class="container1">
 														<!-- put default pic -->
-														<img width="90" class="rounded-circle" id = "EmpProfileImage"
+														<img class="rounded-circle" id = "EmpProfileImage"
 															src="{{ url_for('static',filename='assets/vendor/bootstrap/images/layout_img/user_img.jpg') }}"
 															alt="#">
 														<input type="file" id="upload" name="emp_image_file" hidden
@@ -183,9 +182,7 @@
 						<!-- footer -->
 						<div class="container-fluid">
 							<div class="footer">
-								<p>Copyright © 2018 Designed by html.design. All rights reserved.<br><br>
-									Distributed By: <a href="https://themewagon.com/">ThemeWagon</a>
-								</p>
+								<p>© Copyright 2022: John & Moon Sdn Bhd.</p>
 							</div>
 						</div>
 					</div>

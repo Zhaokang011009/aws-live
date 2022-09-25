@@ -50,8 +50,8 @@
 								src="{{ url_for('static',filename='assets/vendor/bootstrap/images/logo/logo.png')}}"
 								alt="#" /></a>
 					</div>
-					<form action="/listemp" autocomplete="on" method="POST" enctype="multipart/form-data">
-						<ul class="list-unstyled components">
+                    <form action="/listemp" autocomplete="on" method="POST" enctype="multipart/form-data">
+                        <ul class="list-unstyled components">
 							<li>
 								<button type="submit" class="btnSideBar" formaction="/listEmp"><i
 										class="fa fa-user orange_color2"></i> <span>Employee List</span></button>
@@ -66,15 +66,12 @@
 							</li>
 							<li>
 								<button type="submit" class="btnSideBar" formaction="/goUploadDoc"><i
-										class="fa fa-cloud-upload green_color"></i> <span>Upload
-										Document</span></button>
+										class="fa fa-cloud-upload green_color"></i> <span>Upload Document</span></button>
 							</li>
-							<li>
+                            <li>
 								<button type="submit" class="btnSideBar" formaction="/listTraining"><i>
-										<img style="width: fit-content; height: 25px; background: white;"
-											src="{{ url_for('static',filename='assets/vendor/bootstrap/images/layout_img/training_icon.png')}}">
-									</i>
-									<span>Training List</span></button>
+                                    <img style="width: fit-content; height: 25px; background: white;" src="{{ url_for('static',filename='assets/vendor/bootstrap/images/layout_img/training_icon.png')}}"> </i> 
+                                        <span>Training List</span></button>
 							</li>
 							<li>
 								<button type="submit" class="btnSideBar" formaction="/goRegisterTraining"><i
@@ -93,7 +90,9 @@
 										class="fa fa-info orange_color2"></i> <span>About Us</span></button>
 							</li>
 						</ul>
-					</form>
+                    </form>
+
+
 				</div>
 			</nav>
 			<!-- end sidebar -->
@@ -125,7 +124,7 @@
                                                     <div class="field">
                                                         <label class="label_field hidden">hidden label</label>
                                                     </div>
-													<h2 style="line-height: unset;">Document named {{docName}} belongs to {{empName[0]}} {{empName[1]}} has been uploaded</h2>
+													<h2 style="line-height: unset;">Training for {{empName[0]}} {{empName[1]}} has been applied</h2>
                                                     <div class="field">
                                                         <label class="label_field hidden">hidden label</label>
                                                         <label class="label_field hidden">hidden label</label>
@@ -146,7 +145,7 @@
 						<!-- footer -->
 						<div class="container-fluid">
 							<div class="footer">
-								<p>© Copyright 2022: John & Moon Sdn Bhd</p>
+								<p>© Copyright 2022: John & Moon Sdn Bhd.</p>
 							</div>
 						</div>
 					</div>

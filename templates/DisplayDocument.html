@@ -36,6 +36,19 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
+
+  <style>
+    body {
+      /* Set "my-sec-counter" to 0 */
+      counter-reset: my-sec-counter;
+    }
+
+    .numDocument::before {
+      /* Increment "my-sec-counter" by 1 */
+      counter-increment: my-sec-counter;
+      content: counter(my-sec-counter) ".";
+    }
+  </style>
 </head>
 
 <body class="inner_page tables_page">
@@ -46,48 +59,51 @@
       <nav id="sidebar">
         <div class="sidebar_blog_2">
           <div class="logo_section">
-            <a href="/"><img class="img-responsive"
+            <a href="/"><img style="width: 100%;height: 150px;" class="img-responsive"
                 src="{{ url_for('static',filename='assets/vendor/bootstrap/images/logo/logo.png')}}" alt="#" /></a>
           </div>
           <form action="/listemp" autocomplete="on" method="POST" enctype="multipart/form-data">
             <ul class="list-unstyled components">
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/listEmp"><i
-										class="fa fa-table purple_color2"></i> <span>Staff List</span></button>
-							</li>
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/goAdd"><i
-										class="fa fa-table purple_color2"></i> <span>Add Staff</span></button>
-							</li>
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/listDoc"><i
-										class="fa fa-table purple_color2"></i> <span>Document List</span></button>
-							</li>
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/goUploadDoc"><i
-										class="fa fa-table purple_color2"></i> <span>Upload Document</span></button>
-							</li>
-                            <li>
-								<button type="submit" class="btnSideBar" formaction="/listTraining"><i
-										class="fa fa-table purple_color2"></i> <span>Training List</span></button>
-							</li>
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/goRegisterTraining"><i
-										class="fa fa-table purple_color2"></i> <span>Register Training</span></button>
-							</li>
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/listLeave"><i
-										class="fa fa-table purple_color2"></i> <span>Leave List</span></button>
-							</li>
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/goAddLeave"><i
-										class="fa fa-table purple_color2"></i> <span>Apply Leave</span></button>
-							</li>
-							<li>
-								<button type="submit" class="btnSideBar" formaction="/about"><i
-										class="fa fa-table purple_color2"></i> <span>About Us</span></button>
-							</li>
-						</ul>
+              <li>
+                <button type="submit" class="btnSideBar" formaction="/listEmp"><i class="fa fa-user orange_color2"></i>
+                  <span>Employee List</span></button>
+              </li>
+              <li>
+                <button type="submit" class="btnSideBar" formaction="/goAdd"><i
+                    class="fa fa-user-plus yellow_color"></i> <span>Add Employee</span></button>
+              </li>
+              <li>
+                <button type="submit" class="btnSideBar" formaction="/listDoc"><i class="fa fa-file blue2_color"></i>
+                  <span>Document List</span></button>
+              </li>
+              <li>
+                <button type="submit" class="btnSideBar" formaction="/goUploadDoc"><i
+                    class="fa fa-cloud-upload green_color"></i> <span>Upload Document</span></button>
+              </li>
+              <li>
+                <button type="submit" class="btnSideBar" formaction="/listTraining"><i>
+                    <img style="width: fit-content; height: 25px; background: white;"
+                      src="{{ url_for('static',filename='assets/vendor/bootstrap/images/layout_img/training_icon.png')}}">
+                  </i>
+                  <span>Training List</span></button>
+              </li>
+              <li>
+                <button type="submit" class="btnSideBar" formaction="/goRegisterTraining"><i
+                    class="fa fa-user purple_color2"></i> <span>Register Training</span></button>
+              </li>
+              <li>
+                <button type="submit" class="btnSideBar" formaction="/listLeave"><i
+                    class="fa fa-calendar orange_color2"></i> <span>Leave List</span></button>
+              </li>
+              <li>
+                <button type="submit" class="btnSideBar" formaction="/goAddLeave"><i
+                    class="fa fa-calendar-plus-o red_color"></i> <span>Apply Leave</span></button>
+              </li>
+              <li>
+                <button type="submit" class="btnSideBar" formaction="/about"><i class="fa fa-info orange_color2"></i>
+                  <span>About Us</span></button>
+              </li>
+            </ul>
           </form>
 
 
@@ -122,12 +138,11 @@
                         <div class="input-append">
                           <div class="inbox-head"
                             style="float: left; padding: 0px 24px 0px 0px; min-height: unset; background: unset;">
-                            <input type="text" class="sr-input" name="emp_name" placeholder="Search Document Name">
+                            <input type="text" class="sr-input" name="doc_name" placeholder="Search Document Name">
                             <button class="btn sr-btn" type="submit"><i class="fa fa-search"></i></button>
                           </div>
                         </div>
                       </form>
-
                     </div>
                   </div>
                   <div class="table_section padding_infor_info">
@@ -142,12 +157,12 @@
                         <tbody>
                           {% for rows in documentList %}
                           <tr>
-                            <form action="\removeDoc" , method="post">
+                            <form action="/removeDoc" , method="post">
                               <td class="numDocument"></td>
                               <td>{{rows[0]}}</td>
                               <td>{{rows[1]}} {{rows[2]}}</td>
                               <td><button type="submit" name="removeDocument" value="{{rows[0]}}"
-                                  formaction="/removeDoc" class = "btnRemove">Remove</button><br>
+                                  formaction="/removeDoc" class="btnRemove">Remove</button><br>
                               </td>
                           </tr>
                           {% endfor %}
@@ -164,7 +179,7 @@
               <!-- footer -->
               <div class="container-fluid">
                 <div class="footer">
-                  <p>Copyright © 2018 Designed by html.design. All rights reserved.</p>
+                  <p>© Copyright 2022: John & Moon Sdn Bhd.</p>
                 </div>
               </div>
             </div>
