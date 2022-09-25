@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
+    <title>Leave List</title>
+
     <!-- basic -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>Home</title>
+    <title>Leave Listing</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -36,6 +38,20 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
+
+    <!-- increment num css -->
+    <style>
+        body {
+            /* Set "my-sec-counter" to 0 */
+            counter-reset: my-sec-counter;
+        }
+
+        .numLeave::before {
+            /* Increment "my-sec-counter" by 1 */
+            counter-increment: my-sec-counter;
+            content: counter(my-sec-counter) ".";
+        }
+    </style>
 </head>
 
 <body class="inner_page tables_page">
@@ -50,8 +66,8 @@
 								src="{{ url_for('static',filename='assets/vendor/bootstrap/images/logo/logo.png')}}"
 								alt="#" /></a>
 					</div>
-					<form action="/listemp" autocomplete="on" method="POST" enctype="multipart/form-data">
-						<ul class="list-unstyled components">
+                    <form action="/listemp" autocomplete="on" method="POST" enctype="multipart/form-data">
+                        <ul class="list-unstyled components">
 							<li>
 								<button type="submit" class="btnSideBar" formaction="/listEmp"><i
 										class="fa fa-user orange_color2"></i> <span>Employee List</span></button>
@@ -66,15 +82,12 @@
 							</li>
 							<li>
 								<button type="submit" class="btnSideBar" formaction="/goUploadDoc"><i
-										class="fa fa-cloud-upload green_color"></i> <span>Upload
-										Document</span></button>
+										class="fa fa-cloud-upload green_color"></i> <span>Upload Document</span></button>
 							</li>
-							<li>
+                            <li>
 								<button type="submit" class="btnSideBar" formaction="/listTraining"><i>
-										<img style="width: fit-content; height: 25px; background: white;"
-											src="{{ url_for('static',filename='assets/vendor/bootstrap/images/layout_img/training_icon.png')}}">
-									</i>
-									<span>Training List</span></button>
+                                    <img style="width: fit-content; height: 25px; background: white;" src="{{ url_for('static',filename='assets/vendor/bootstrap/images/layout_img/training_icon.png')}}"> </i> 
+                                        <span>Training List</span></button>
 							</li>
 							<li>
 								<button type="submit" class="btnSideBar" formaction="/goRegisterTraining"><i
@@ -93,7 +106,7 @@
 										class="fa fa-info orange_color2"></i> <span>About Us</span></button>
 							</li>
 						</ul>
-					</form>
+                    </form>
                 </div>
             </nav>
             <!-- end sidebar -->
@@ -107,74 +120,71 @@
                         <div class="row column_title">
                             <div class="col-md-12">
                                 <div class="page_title">
-                                    <h2>Home</h2>
+                                    <h2>Leave List</h2>
                                 </div>
                             </div>
                         </div>
-                        <!-- table section -->
-                        <div class="row column1">
-                            <div class="col-md-6 col-lg-3">
-                                <div class="full counter_section margin_bottom_30">
-                                    <div class="couter_icon">
-                                        <div>
-                                            <i class="fa fa-user yellow_color"></i>
+                        <!-- row -->
+                        <div class="row" style="width: 100%;">
+                            <!-- table section -->
+                            <div class="col-md-12">
+                                <div class="white_shd full margin_bottom_30">
+                                    <div class="full graph_head">
+                                        <div class="heading1 margin_0">
+                                            <h2>Leave Listing</h2>
+                                        </div>
+                                        <div class="right_topbar">
+                                            <form action="/searchLeave" method="post">
+                                                <div class="input-append">
+                                                    <div class="inbox-head"
+                                                        style="float: left; padding: 0px 24px 0px 0px; min-height: unset; background: unset;">
+                                                        <input type="text" class="sr-input" name="leave_name"
+                                                            placeholder="Search Leave">
+                                                        <button class="btn sr-btn" type="submit"><i
+                                                                class="fa fa-search"></i></button>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
-                                    <div class="counter_no">
-                                        <div>
-                                            <p class="total_no">{{empCount[0]}}</p>
-                                            <p class="head_couter">Employees added</p>
+                                    <div class="table_section padding_infor_info">
+                                        <div class="table-responsive-sm">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>From</th>
+                                                        <th>To</th>
+                                                        <th>Employee Apply</th>
+                                                        <th>Reason Apply Leave</th>
+                                                        <th>Date Approved</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for rows in leaveList %}
+                                                    <tr>
+                                                        <form action="/removeLeave" , method="post">
+                                                            <td class="numLeave"></td>
+                                                            <td>{{rows[1]}}</td>
+                                                            <td>{{rows[2]}}</td>
+                                                            <td>{{rows[3]}} {{rows[4]}}</td>
+                                                            <td>{{rows[5]}}</td>
+                                                            <td>{{rows[6]}}</td>
+                                                            <td>
+                                                                <button type="submit" name="removeLeaveID"
+                                                                    value="{{rows[0]}}" formaction="/removeLeave"
+                                                                    class="btnRemove">Remove</button><br>
+                                                            </td>
+                                                        </form>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-lg-3">
-                                <div class="full counter_section margin_bottom_30">
-                                    <div class="couter_icon">
-                                        <div>
-                                            <i class="fa fa-file blue1_color"></i>
-                                        </div>
-                                    </div>
-                                    <div class="counter_no">
-                                        <div>
-                                            <p class="total_no">{{docCount[0]}}</p>
-                                            <p class="head_couter">Document uploaded</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <div class="full counter_section margin_bottom_30">
-                                    <div class="couter_icon">
-                                        <div>
-                                            <i class="fa fa-bed red_color"></i>
-                                        </div>
-                                    </div>
-                                    <div class="counter_no">
-                                        <div>
-                                            <p class="total_no">{{leaveCount[0]}}</p>
-                                            <p class="head_couter">Leave Applied</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <div class="full counter_section margin_bottom_30">
-                                    <div class="couter_icon">
-                                        <div>
-                                            <i class="fa  fa-calendar orange_color"></i>
-                                        </div>
-                                    </div>
-                                    <div class="counter_no">
-                                        <div>
-                                            <p class="total_no">{{trainingCount[0]}}</p>
-                                            <p class="head_couter">Trainings</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
                             <!-- footer -->
                             <div class="container-fluid">
                                 <div class="footer">

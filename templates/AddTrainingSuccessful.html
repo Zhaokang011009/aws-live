@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 	<!-- basic -->
@@ -9,7 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
 	<!-- site metas -->
-	<title>Add New Employee</title>
+	<title>Added Successful</title>
 	<meta name="keywords" content="">
 	<meta name="description" content="">
 	<meta name="author" content="">
@@ -33,25 +33,25 @@
 	<!-- calendar file css -->
 	<link rel="stylesheet" href="{{ url_for('static',filename='assets/vendor/bootstrap/js/semantic.min.css')}}" />
 	<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
+		  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		  <![endif]-->
 </head>
 
-<body class="inner_page profile_page">
+<body class="inner_page tables_page">
 
 	<div class="full_container">
 		<div class="inner_container">
 			<!-- Sidebar  -->
 			<nav id="sidebar">
 				<div class="sidebar_blog_2">
-                    <div class="logo_section">
-                        <a href="/"><img style="width: 100%;height: 150px;" class="img-responsive"
-                                src="{{ url_for('static',filename='assets/vendor/bootstrap/images/logo/logo.png')}}"
-                                alt="#" /></a>
-                    </div>
+					<div class="logo_section">
+						<a href="/"><img style="width: 100%;height: 150px;" class="img-responsive"
+								src="{{ url_for('static',filename='assets/vendor/bootstrap/images/logo/logo.png')}}"
+								alt="#" /></a>
+					</div>
                     <form action="/listemp" autocomplete="on" method="POST" enctype="multipart/form-data">
-						<ul class="list-unstyled components">
+                        <ul class="list-unstyled components">
 							<li>
 								<button type="submit" class="btnSideBar" formaction="/listEmp"><i
 										class="fa fa-user orange_color2"></i> <span>Employee List</span></button>
@@ -91,6 +91,8 @@
 							</li>
 						</ul>
                     </form>
+
+
 				</div>
 			</nav>
 			<!-- end sidebar -->
@@ -104,7 +106,7 @@
 						<div class="row column_title">
 							<div class="col-md-12">
 								<div class="page_title">
-									<h2>Add New Employee</h2>
+
 								</div>
 							</div>
 						</div>
@@ -113,63 +115,22 @@
 							<div class="col-md-2"></div>
 							<div class="col-md-8">
 								<div class="white_shd full margin_bottom_30">
-									<div class="full graph_head">
-										<div class="heading1 margin_0">
-											<h2>Add New Employee</h2>
-										</div>
-									</div>
-
 									<div class="full price_table padding_infor_info">
 										<div class="row">
-											<div class="add">
-												<form action="/addemp" autocomplete="on" method="POST"
-													enctype="multipart/form-data">
-													<div class="container1">
-														<!-- put default pic -->
-														<img class="rounded-circle" id = "EmpProfileImage"
-															src="{{ url_for('static',filename='assets/vendor/bootstrap/images/layout_img/user_img.jpg') }}"
-															alt="#">
-														<input type="file" id="upload" name="emp_image_file" hidden
-															onchange="document.getElementById('EmpProfileImage').src = window.URL.createObjectURL(this.files[0])"
-															class="btn">
-														<label for="upload" class="upload">Choose file</label>
-													</div>
-
-													<div>
-														<label class="label_field hidden">hidden label</label>
-													</div>
-													<div class="field">
-														<label class="label_field">Employee ID</label>
-														<input type="number" name="emp_id" placeholder="Employee ID" />
-													</div>
-													<div class="field">
-														<label class="label_field">First Name</label>
-														<input type="text" name="first_name" placeholder="First Name" />
-													</div>
-													<div class="field">
-														<label class="label_field">Last Name</label>
-														<input type="text" name="last_name" placeholder="Last Name" />
-													</div>
-													<div class="field">
-														<label class="label_field">Primary Skill</label>
-														<input type="text" name="pri_skill"
-															placeholder="Primary Skill" />
-													</div>
-													<div class="field">
-														<label class="label_field">Location</label>
-														<input type="text" name="location" placeholder="Location" />
-													</div>
-
-													<div>
-														<label class="label_field hidden">hidden label</label>
-													</div>
-													<div>
-														<label class="label_field hidden">hidden label</label>
-														<button type="submit" class="btnAdd">Add</button>
-													</div>
-
+											<!-- user profile section -->
+											<!-- profile image -->
+											<div class="edit">
+												<form action="/">
+                                                    <div class="field">
+                                                        <label class="label_field hidden">hidden label</label>
+                                                    </div>
+													<h2 style="line-height: unset;">Training for {{empName[0]}} {{empName[1]}} has been applied</h2>
+                                                    <div class="field">
+                                                        <label class="label_field hidden">hidden label</label>
+                                                        <label class="label_field hidden">hidden label</label>
+                                                    </div>
+                                                    <button class = "btn cur-p btn-primary" type="submit">Back to home page</button>
 												</form>
-
 											</div>
 
 										</div>
@@ -179,6 +140,8 @@
 							</div>
 							<!-- end row -->
 						</div>
+
+
 						<!-- footer -->
 						<div class="container-fluid">
 							<div class="footer">
@@ -189,32 +152,35 @@
 					<!-- end dashboard inner -->
 				</div>
 			</div>
+
 		</div>
-	</div>
-	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<!-- wow animation -->
-	<script src="js/animate.js"></script>
-	<!-- select country -->
-	<script src="js/bootstrap-select.js"></script>
-	<!-- owl carousel -->
-	<script src="js/owl.carousel.js"></script>
-	<!-- chart js -->
-	<script src="js/Chart.min.js"></script>
-	<script src="js/Chart.bundle.min.js"></script>
-	<script src="js/utils.js"></script>
-	<script src="js/analyser.js"></script>
-	<!-- nice scrollbar -->
-	<script src="js/perfect-scrollbar.min.js"></script>
-	<script>
-		var ps = new PerfectScrollbar('#sidebar');
-	</script>
-	<!-- custom js -->
-	<script src="js/custom.js"></script>
-	<!-- calendar file css -->
-	<script src="js/semantic.min.js"></script>
+		<!-- jQuery -->
+		<script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/jquery.min.js')}}"></script>
+		<script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/popper.min.js')}}"></script>
+		<script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+		<!-- wow animation -->
+		<script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/animate.js')}}"></script>
+		<!-- select country -->
+		<script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/bootstrap-select.js')}}"></script>
+		<!-- owl carousel -->
+		<script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/owl.carousel.js')}}"></script>
+		<!-- chart js -->
+		<script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/Chart.min.js')}}"></script>
+		<script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/Chart.bundle.min.js')}}"></script>
+		<script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/utils.js')}}"></script>
+		<script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/analyser.js')}}"></script>
+		<!-- nice scrollbar -->
+		<script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/perfect-scrollbar.min.js')}}"></script>
+		<script>
+			var ps = new PerfectScrollbar('#sidebar');
+		</script>
+		<!-- fancy box js -->
+		<script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/jquery-3.3.1.min.js')}}"></script>
+		<script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/jquery.fancybox.min.js')}}"></script>
+		<!-- custom js -->
+		<script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/custom.js')}}"></script>
+		<!-- calendar file css -->
+		<script src="{{ url_for('static',filename='assets/vendor/bootstrap/js/semantic.min.js')}}"></script>
 </body>
 
 </html>
