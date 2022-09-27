@@ -296,15 +296,12 @@ def uploadFile():
     emp_name_belonging = cursor.fetchone()
 
     #upload file
-
-    if important_file == "":
-        return "Please choose a document"
-    else: 
-        cursor.execute(doc_insert_sql, (doc_id_str, doc_to_upload_s3, emp_id_to_upload))
-        db_conn.commit()
+    cursor.execute(doc_insert_sql, (doc_id_str, doc_to_upload_s3, emp_id_to_upload))
+    db_conn.commit()
+    
+    if important_file != "":
         # Uplaod file in S3 #
         s3 = boto3.resource('s3')
-
         s3.Bucket(custombucket).put_object(Key=doc_to_upload_s3, Body=important_file)
         bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
         s3_location = (bucket_location['LocationConstraint'])
