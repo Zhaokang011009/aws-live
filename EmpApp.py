@@ -33,6 +33,7 @@ def home():
     leave_count_sql = "SELECT COUNT(leave_id) FROM leaveEmployee"
     training_count_sql = "SELECT COUNT(t_id) FROM trainingClass"
 
+    db_conn.ping(reconnect = True)
     cursor = db_conn.cursor()
     cursor.execute(emp_count_sql)
     empCount = cursor.fetchone()
@@ -440,5 +441,4 @@ def searchTraining():
     return render_template('DisplayTraining.html', trainingList = trainingList)
 
 if __name__ == '__main__':
-    
     app.run(host='0.0.0.0', port=80, debug=True)
