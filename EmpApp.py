@@ -1,5 +1,6 @@
 from pydoc import doc
 from sqlite3 import Cursor
+from typing_extensions import Self
 from flask import Flask, redirect, url_for, render_template, request
 from pymysql import connections
 from datetime import date
@@ -21,6 +22,15 @@ db_conn = connections.Connection(
     db=customdb
 )
 
+def create_connection():
+    return connections.Connection(
+    host=customhost,
+    port=3306,
+    user=customuser,
+    password=custompass,
+    db=customdb
+)
+
 output = {}
 table = 'employee'
 
@@ -28,11 +38,14 @@ table = 'employee'
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
+    db_conn = create_connection()
+
     emp_count_sql = "SELECT COUNT(emp_id) FROM employee"
     doc_count_sql = "SELECT COUNT(doc_id) FROM document"
     leave_count_sql = "SELECT COUNT(leave_id) FROM leaveEmployee"
     training_count_sql = "SELECT COUNT(t_id) FROM trainingClass"
 
+    db_conn.ping(reconnect = True)
     cursor = db_conn.cursor()
     cursor.execute(emp_count_sql)
     empCount = cursor.fetchone()
