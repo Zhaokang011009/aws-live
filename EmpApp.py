@@ -440,5 +440,4 @@ def searchTraining():
     return render_template('DisplayTraining.html', trainingList = trainingList)
 
 if __name__ == '__main__':
-    
     app.run(host='0.0.0.0', port=80, debug=True)
