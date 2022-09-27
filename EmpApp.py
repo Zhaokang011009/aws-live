@@ -23,7 +23,6 @@ db_conn = connections.Connection(
 
 output = {}
 table = 'employee'
-cursor = db_conn.cursor()
 
 #navigation function
 
@@ -34,6 +33,7 @@ def home():
     leave_count_sql = "SELECT COUNT(leave_id) FROM leaveEmployee"
     training_count_sql = "SELECT COUNT(t_id) FROM trainingClass"
 
+    cursor = db_conn.cursor()
     cursor.execute(emp_count_sql)
     empCount = cursor.fetchone()
     cursor.execute(doc_count_sql)
@@ -42,6 +42,7 @@ def home():
     leaveCount = cursor.fetchone()
     cursor.execute(training_count_sql)
     trainingCount = cursor.fetchone()
+    cursor.close()
 
     return render_template('Home.html', empCount = empCount, docCount = docCount, leaveCount = leaveCount, trainingCount = trainingCount)
 
@@ -67,32 +68,41 @@ def addTrainingPage():
 
 @app.route("/listEmp", methods=['POST'])
 def displayEmp():
+    cursor = db_conn.cursor()
     cursor.execute("Select * from employee")
     employeeList = cursor.fetchall()
+    print(employeeList)
+    cursor.close()
 
     return render_template('DisplayEmployee.html', empList = employeeList, bucketName = bucket)
 
 @app.route("/listDoc", methods=['POST'])
 def displayDoc():
+    cursor = db_conn.cursor()
     select_doc_sql = "Select d.doc_url, e.first_name, e.last_name FROM employee as e, document as d WHERE e.emp_id = d.link_emp_id"
     cursor.execute(select_doc_sql)
     documentList = cursor.fetchall()
+    cursor.close()
 
     return render_template('DisplayDocument.html', documentList = documentList)
 
 @app.route("/listLeave", methods=['POST'])
 def displayLeave(): 
+    cursor = db_conn.cursor()
     select_leave_sql = "SELECT l.leave_id, l.from_date, l.to_date, e.first_name, e.last_name, l.reason_apply, l.approved_date FROM leaveEmployee AS l, employee AS e WHERE l.link_emp_id = e.emp_id"
     cursor.execute(select_leave_sql)
     leaveList = cursor.fetchall()
-
+    cursor.close()
     return render_template('DisplayLeave.html', leaveList = leaveList)
 
 @app.route("/listTraining", methods=['POST'])
 def displayTraining():
+    cursor = db_conn.cursor()
     select_t_sql = "Select t.t_id, t.t_name, t.t_date, t.t_time, e.first_name, e.last_name FROM employee as e, trainingClass as t WHERE e.emp_id = t.t_emp_id"
     cursor.execute(select_t_sql)
     trainingList = cursor.fetchall()
+    print(trainingList)
+    cursor.close()
 
     return render_template('DisplayTraining.html', trainingList = trainingList)
 
@@ -107,6 +117,8 @@ def AddEmp():
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
 
+    cursor = db_conn.cursor()
+
     insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s)"
 
     if emp_image_file.filename == "":
@@ -115,6 +127,7 @@ def AddEmp():
     else:
         cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location))
         db_conn.commit()
+        emp_name = "" + first_name + " " + last_name
         # Uplaod image file in S3 #
         emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file.png"
         s3 = boto3.resource('s3')
@@ -136,20 +149,28 @@ def AddEmp():
     
     getEmpSQL = "Select * from employee WHERE emp_id = %s"
     cursor.execute(getEmpSQL, emp_id)
-    newEmployee = cursor.fetchone() 
+    newEmployee = cursor.fetchone()
+    cursor.close()
 
+    
+
+    print("all modification done...")
     return render_template('AddEmpSuccessful.html', bucketName = bucket, empData = newEmployee)
 
 @app.route("/edtEmp", methods=['POST'])
 def edtEmp():
+    cursor = db_conn.cursor()
     emp_id_get = request.form['emp_IDs']
     getEmpSQL = "Select * from employee WHERE emp_id = %s"
     cursor.execute(getEmpSQL, emp_id_get)
     employee = cursor.fetchone()
+    cursor.close()
 
+    cursor = db_conn.cursor()
     getEmpDocSQL = "Select * from document WHERE link_emp_id = %s"
     cursor.execute(getEmpDocSQL, emp_id_get)
     docList = cursor.fetchall()
+    cursor.close()
 
     return render_template('EditEmp.html', empData = employee, bucketName = bucket, docList = docList)
 
@@ -157,8 +178,10 @@ def edtEmp():
 def searchEmp():
     emp_search = request.form['emp_name']
     search_emp_sql = "SELECT * FROM employee WHERE first_name = %s OR last_name = %s OR pri_skill = %s OR location = %s"
+    cursor = db_conn.cursor()
     cursor.execute(search_emp_sql, (emp_search, emp_search, emp_search, emp_search))
     employeeList = cursor.fetchall()
+    cursor.close()
 
     return render_template('DisplayEmployee.html', empList = employeeList, bucketName = bucket)
 
@@ -171,6 +194,7 @@ def EditEmp():
     location_edt = request.form['emp_location']
     emp_image_file_edt = request.files['emp_image_file']
 
+    cursor = db_conn.cursor()
     update_sql = "UPDATE employee SET first_name = %s, last_name = %s, pri_skill = %s, location = %s WHERE emp_id = %s"
     select_editEmp_sql = "Select * FROM employee WHERE emp_id = %s"
 
@@ -180,15 +204,19 @@ def EditEmp():
     cursor.execute(select_editEmp_sql, emp_id_edt)
     empEditData = cursor.fetchone()
 
+    cursor = db_conn.cursor()
     getEmpDocSQL = "Select * from document WHERE link_emp_id = %s"
     cursor.execute(getEmpDocSQL, emp_id_edt)
     docList = cursor.fetchall()
 
+    cursor.close()
     return render_template('EditEmpSuccessful.html', empData = empEditData, bucketName = bucket, docList = docList)
 
 @app.route("/removeEmp", methods=['POST'])
 def RemoveEmp():
+    cursor = db_conn.cursor()
     emp_id = request.form['emp_IDs']
+    print(emp_id)
     remove_sql = "Delete from employee WHERE emp_id = %s"
     select_nameDeleteEmp_sql = "Select first_name, last_name from employee WHERE emp_id = %s"
     emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file.png"
@@ -202,7 +230,13 @@ def RemoveEmp():
     s3 = boto3.resource('s3')
     s3.Object(custombucket, emp_image_file_name_in_s3).delete()
     db_conn.commit()
+    cursor.close()
 
+    cursor = db_conn.cursor()
+    cursor.execute("Select * from employee")
+    employeeList = cursor.fetchall()
+    print(employeeList)
+    cursor.close()
     return render_template('RemoveEmpSuccessful.html', bucketName = bucket, deletedName = emp_deleted_name)
 
 #file function
@@ -218,6 +252,7 @@ def uploadFile():
     doc_count_sql = "SELECT COUNT(doc_id)+1 FROM document"
 
     #get count
+    cursor = db_conn.cursor()
     cursor.execute(doc_count_sql)
     totalCountDoc = cursor.fetchone()
 
@@ -250,11 +285,13 @@ def uploadFile():
             s3_location,
             custombucket,
             doc_to_upload_s3)
-    
+
+    cursor.close()
     return render_template('UploadDocSuccessful.html', docName = important_file.filename, empName = emp_name_belonging)
 
 @app.route("/removeDoc", methods=['POST'])
 def removeDoc():
+    cursor = db_conn.cursor()
     remove_doc_name = request.form['removeDocument']
     remove_sql = "Delete from document WHERE doc_url = %s"
     select_remove_doc_sql = "SELECT e.first_name, e.last_name FROM document d, employee e WHERE d.link_emp_id = e.emp_id AND d.doc_url = %s"
@@ -267,6 +304,7 @@ def removeDoc():
     s3 = boto3.resource('s3')
     s3.Object(custombucket, remove_doc_name).delete()
     db_conn.commit()
+    cursor.close()
 
     return render_template('RemoveDocSuccessful.html', empName = empName, bucketName = bucket, removedDocName = remove_doc_name)
 
@@ -274,8 +312,10 @@ def removeDoc():
 def searchDoc():
     doc_search = request.form['doc_name']
     search_doc_sql = "SELECT d.doc_url, e.first_name, e.last_name FROM employee as e, document as d WHERE (d.doc_url = %s OR e.first_name = %s OR e.last_name = %s) AND (e.emp_id = d.link_emp_id)"
+    cursor = db_conn.cursor()
     cursor.execute(search_doc_sql, (doc_search, doc_search, doc_search))
     documentList = cursor.fetchall()
+    cursor.close()
 
     return render_template('DisplayDocument.html', documentList = documentList, bucketName = bucket)
 
@@ -291,6 +331,8 @@ def addLeave():
     emp_name_leave_sql = "Select first_name, last_name from employee WHERE emp_id = %s"
     count_leave_sql = "SELECT COUNT(leave_id)+1 FROM leaveEmployee"
 
+    cursor = db_conn.cursor()
+
     cursor.execute(emp_name_leave_sql, emp_id_leave)
     empName = cursor.fetchone()
 
@@ -301,11 +343,12 @@ def addLeave():
 
     cursor.execute(add_leave_sql, (leave_id, str(date.today()), str(leave_from_date), str(leave_to_date), reason_apply, emp_id_leave))
     db_conn.commit()
-
+    cursor.close()
     return render_template('ApplyLeaveSuccessful.html', empName = empName)
 
 @app.route("/removeLeave", methods=['POST'])
 def removeLeave():
+    cursor = db_conn.cursor()
     leave_id = request.form['removeLeaveID']
     remove_sql = "Delete from leaveEmployee WHERE leave_id = %s"
     select_leave_name_sql = "Select e.first_name, e.last_name from employee as e, leaveEmployee as le WHERE le.link_emp_id = e.emp_id AND leave_id = %s"
@@ -316,6 +359,7 @@ def removeLeave():
     #remove data
     cursor.execute(remove_sql, leave_id)
     db_conn.commit()
+    cursor.close()
 
     return render_template('RemoveLeaveSuccessful.html', leave_name = leave_name)
 
@@ -323,8 +367,10 @@ def removeLeave():
 def searchLeave():
     leave_search = request.form['leave_name']
     search_leave_sql = "SELECT l.leave_id, l.from_date, l.to_date, e.first_name, e.last_name, l.reason_apply, l.approved_date FROM leaveEmployee AS l, employee AS e WHERE (l.from_date = %s OR l.to_date = %s OR e.first_name = %s OR e.last_name = %s OR l.reason_apply = %s OR l.approved_date = %s) AND (l.link_emp_id = e.emp_id)"
+    cursor = db_conn.cursor()
     cursor.execute(search_leave_sql, (leave_search, leave_search, leave_search, leave_search, leave_search, leave_search))
     leaveList = cursor.fetchall()
+    cursor.close()
 
     return render_template('DisplayLeave.html', leaveList = leaveList, bucketName = bucket)
 
@@ -340,6 +386,7 @@ def addTraining():
     T_count_sql = "SELECT COUNT(t_id)+1 FROM trainingClass"
     emp_name_training_sql = "Select first_name, last_name from employee WHERE emp_id = %s"
 
+    cursor = db_conn.cursor()
     cursor.execute(emp_name_training_sql, empID)
     empName = cursor.fetchone()
 
@@ -359,10 +406,13 @@ def addTraining():
         cursor.execute(T_insert_sql, (T_id_str, trainClass, date, time, empID))
         db_conn.commit()
 
+
+    cursor.close()
     return render_template('AddTrainingSuccessful.html', empName = empName)
 
 @app.route("/removeTraining", methods=['POST'])
 def removeTraining():
+    cursor = db_conn.cursor()
     removeTrainingID = request.form['t_id']
     remove_sql = "Delete from trainingClass WHERE t_id = %s"
     emp_name_training_sql = "Select e.first_name, e.last_name from trainingClass as t, employee as e WHERE t.t_id = %s AND e.emp_id = t.t_emp_id"
@@ -373,16 +423,19 @@ def removeTraining():
     #remove data
     cursor.execute(remove_sql, removeTrainingID)
     db_conn.commit()
+    cursor.close()
 
     return render_template('RemoveTrainingSuccessful.html', empName = empName)
 
 @app.route("/searchTraining", methods=['POST'])
 def searchTraining():
+    cursor = db_conn.cursor()
     training_search = request.form['training_name']
     select_t_sql = "Select t.t_id, t.t_name, t.t_date, t.t_time, e.first_name, e.last_name FROM employee as e, trainingClass as t WHERE (t.t_id = %s OR t.t_name = %s OR t.t_date = %s OR t.t_time = %s OR e.first_name = %s OR e.last_name = %s) AND (e.emp_id = t.t_emp_id)"
     cursor.execute(select_t_sql, (training_search, training_search, training_search, training_search, training_search, training_search))
     trainingList = cursor.fetchall()
     print(trainingList)
+    cursor.close()
 
     return render_template('DisplayTraining.html', trainingList = trainingList)
 
