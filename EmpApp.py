@@ -14,14 +14,6 @@ app = Flask(__name__)
 bucket = custombucket
 region = customregion
 
-db_conn = connections.Connection(
-    host=customhost,
-    port=3306,
-    user=customuser,
-    password=custompass,
-    db=customdb
-)
-
 def create_connection():
     return connections.Connection(
     host=customhost,
@@ -81,6 +73,7 @@ def addTrainingPage():
 
 @app.route("/listEmp", methods=['POST'])
 def displayEmp():
+    db_conn = create_connection()
     cursor = db_conn.cursor()
     cursor.execute("Select * from employee")
     employeeList = cursor.fetchall()
@@ -91,6 +84,7 @@ def displayEmp():
 
 @app.route("/listDoc", methods=['POST'])
 def displayDoc():
+    db_conn = create_connection()
     cursor = db_conn.cursor()
     select_doc_sql = "Select d.doc_url, e.first_name, e.last_name FROM employee as e, document as d WHERE e.emp_id = d.link_emp_id"
     cursor.execute(select_doc_sql)
@@ -101,6 +95,7 @@ def displayDoc():
 
 @app.route("/listLeave", methods=['POST'])
 def displayLeave(): 
+    db_conn = create_connection()
     cursor = db_conn.cursor()
     select_leave_sql = "SELECT l.leave_id, l.from_date, l.to_date, e.first_name, e.last_name, l.reason_apply, l.approved_date FROM leaveEmployee AS l, employee AS e WHERE l.link_emp_id = e.emp_id"
     cursor.execute(select_leave_sql)
@@ -110,6 +105,7 @@ def displayLeave():
 
 @app.route("/listTraining", methods=['POST'])
 def displayTraining():
+    db_conn = create_connection()
     cursor = db_conn.cursor()
     select_t_sql = "Select t.t_id, t.t_name, t.t_date, t.t_time, e.first_name, e.last_name FROM employee as e, trainingClass as t WHERE e.emp_id = t.t_emp_id"
     cursor.execute(select_t_sql)
@@ -130,6 +126,7 @@ def AddEmp():
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
 
+    db_conn = create_connection()
     cursor = db_conn.cursor()
 
     insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s)"
@@ -172,6 +169,7 @@ def AddEmp():
 
 @app.route("/edtEmp", methods=['POST'])
 def edtEmp():
+    db_conn = create_connection()
     cursor = db_conn.cursor()
     emp_id_get = request.form['emp_IDs']
     getEmpSQL = "Select * from employee WHERE emp_id = %s"
@@ -189,6 +187,7 @@ def edtEmp():
 
 @app.route("/searchEmp", methods=['POST'])
 def searchEmp():
+    db_conn = create_connection()
     emp_search = request.form['emp_name']
     search_emp_sql = "SELECT * FROM employee WHERE first_name = %s OR last_name = %s OR pri_skill = %s OR location = %s"
     cursor = db_conn.cursor()
@@ -207,13 +206,32 @@ def EditEmp():
     location_edt = request.form['emp_location']
     emp_image_file_edt = request.files['emp_image_file']
 
+    db_conn = create_connection()
     cursor = db_conn.cursor()
     update_sql = "UPDATE employee SET first_name = %s, last_name = %s, pri_skill = %s, location = %s WHERE emp_id = %s"
     select_editEmp_sql = "Select * FROM employee WHERE emp_id = %s"
 
     #update data
-    cursor.execute(update_sql, (first_name_edt, last_name_edt, pri_skill_edt, location_edt, emp_id_edt))
-    db_conn.commit()
+    if emp_image_file_edt.filename == "":
+        return "Please select a file"
+
+    else:
+        cursor.execute(update_sql, (first_name_edt, last_name_edt, pri_skill_edt, location_edt, emp_id_edt))
+        db_conn.commit()
+        # Upload image file in S3 #
+        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id_edt) + "_image_file.png"
+        s3 = boto3.resource('s3')
+
+        print("Data inserted in MySQL RDS... uploading image to S3...")
+        s3.Bucket(custombucket).put_object(Key=emp_image_file_name_in_s3, Body=emp_image_file_edt)
+        bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+        s3_location = (bucket_location['LocationConstraint'])
+
+        if s3_location is None:
+            s3_location = ''
+        else:
+            s3_location = '-' + s3_location
+
     cursor.execute(select_editEmp_sql, emp_id_edt)
     empEditData = cursor.fetchone()
 
@@ -227,6 +245,7 @@ def EditEmp():
 
 @app.route("/removeEmp", methods=['POST'])
 def RemoveEmp():
+    db_conn = create_connection()
     cursor = db_conn.cursor()
     emp_id = request.form['emp_IDs']
     print(emp_id)
@@ -265,6 +284,7 @@ def uploadFile():
     doc_count_sql = "SELECT COUNT(doc_id)+1 FROM document"
 
     #get count
+    db_conn = create_connection()
     cursor = db_conn.cursor()
     cursor.execute(doc_count_sql)
     totalCountDoc = cursor.fetchone()
@@ -304,6 +324,7 @@ def uploadFile():
 
 @app.route("/removeDoc", methods=['POST'])
 def removeDoc():
+    db_conn = create_connection()
     cursor = db_conn.cursor()
     remove_doc_name = request.form['removeDocument']
     remove_sql = "Delete from document WHERE doc_url = %s"
@@ -323,6 +344,7 @@ def removeDoc():
 
 @app.route("/searchDoc", methods=['POST'])
 def searchDoc():
+    db_conn = create_connection()
     doc_search = request.form['doc_name']
     search_doc_sql = "SELECT d.doc_url, e.first_name, e.last_name FROM employee as e, document as d WHERE (d.doc_url = %s OR e.first_name = %s OR e.last_name = %s) AND (e.emp_id = d.link_emp_id)"
     cursor = db_conn.cursor()
@@ -344,6 +366,7 @@ def addLeave():
     emp_name_leave_sql = "Select first_name, last_name from employee WHERE emp_id = %s"
     count_leave_sql = "SELECT COUNT(leave_id)+1 FROM leaveEmployee"
 
+    db_conn = create_connection()
     cursor = db_conn.cursor()
 
     cursor.execute(emp_name_leave_sql, emp_id_leave)
@@ -361,6 +384,7 @@ def addLeave():
 
 @app.route("/removeLeave", methods=['POST'])
 def removeLeave():
+    db_conn = create_connection()
     cursor = db_conn.cursor()
     leave_id = request.form['removeLeaveID']
     remove_sql = "Delete from leaveEmployee WHERE leave_id = %s"
@@ -378,6 +402,7 @@ def removeLeave():
 
 @app.route("/searchLeave", methods=['POST'])
 def searchLeave():
+    db_conn = create_connection()
     leave_search = request.form['leave_name']
     search_leave_sql = "SELECT l.leave_id, l.from_date, l.to_date, e.first_name, e.last_name, l.reason_apply, l.approved_date FROM leaveEmployee AS l, employee AS e WHERE (l.from_date = %s OR l.to_date = %s OR e.first_name = %s OR e.last_name = %s OR l.reason_apply = %s OR l.approved_date = %s) AND (l.link_emp_id = e.emp_id)"
     cursor = db_conn.cursor()
@@ -399,6 +424,7 @@ def addTraining():
     T_count_sql = "SELECT COUNT(t_id)+1 FROM trainingClass"
     emp_name_training_sql = "Select first_name, last_name from employee WHERE emp_id = %s"
 
+    db_conn = create_connection()
     cursor = db_conn.cursor()
     cursor.execute(emp_name_training_sql, empID)
     empName = cursor.fetchone()
@@ -425,6 +451,7 @@ def addTraining():
 
 @app.route("/removeTraining", methods=['POST'])
 def removeTraining():
+    db_conn = create_connection()
     cursor = db_conn.cursor()
     removeTrainingID = request.form['t_id']
     remove_sql = "Delete from trainingClass WHERE t_id = %s"
@@ -442,6 +469,7 @@ def removeTraining():
 
 @app.route("/searchTraining", methods=['POST'])
 def searchTraining():
+    db_conn = create_connection()
     cursor = db_conn.cursor()
     training_search = request.form['training_name']
     select_t_sql = "Select t.t_id, t.t_name, t.t_date, t.t_time, e.first_name, e.last_name FROM employee as e, trainingClass as t WHERE (t.t_id = %s OR t.t_name = %s OR t.t_date = %s OR t.t_time = %s OR e.first_name = %s OR e.last_name = %s) AND (e.emp_id = t.t_emp_id)"
