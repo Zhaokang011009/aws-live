@@ -211,13 +211,11 @@ def EditEmp():
     update_sql = "UPDATE employee SET first_name = %s, last_name = %s, pri_skill = %s, location = %s WHERE emp_id = %s"
     select_editEmp_sql = "Select * FROM employee WHERE emp_id = %s"
 
-    #update data
-    if emp_image_file_edt.filename == "":
-        return "Please select a file"
+    cursor.execute(update_sql, (first_name_edt, last_name_edt, pri_skill_edt, location_edt, emp_id_edt))
+    db_conn.commit()
 
-    else:
-        cursor.execute(update_sql, (first_name_edt, last_name_edt, pri_skill_edt, location_edt, emp_id_edt))
-        db_conn.commit()
+    #update data
+    if emp_image_file_edt.filename != "":
         # Upload image file in S3 #
         emp_image_file_name_in_s3 = "emp-id-" + str(emp_id_edt) + "_image_file.png"
         s3 = boto3.resource('s3')
